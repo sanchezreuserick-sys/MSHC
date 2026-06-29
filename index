@@ -1,0 +1,825 @@
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Rocket,
+  Menu,
+  X,
+  Award,
+  Users,
+  Globe2,
+  GraduationCap,
+  Wrench,
+  FlaskConical,
+  Palette,
+  Sigma,
+  Cpu,
+  ShieldCheck,
+  ArrowRight,
+  Plane,
+  MapPin,
+  Mail,
+  Linkedin,
+  Instagram,
+  ChevronRight,
+  Star,
+  Radio,
+  Satellite,
+} from "lucide-react";
+
+/* ============================================================================
+   LANDING_DATA
+   ----------------------------------------------------------------------------
+   ÚNICA FUENTE DE VERDAD. Edita aquí cualquier texto, métrica, ruta de imagen
+   o dato del proyecto y la web entera se actualizará automáticamente.
+   ============================================================================ */
+
+const LANDING_DATA = {
+  meta: {
+    nombre: "Maker STEAM Horizonte Cero",
+    claim: "Cero punto de partida. Infinito el destino.",
+    favicon: "/assets/favicon.svg",
+  },
+
+  navbar: {
+    logoText: "Horizonte Cero",
+    logoIcon: "rocket",
+    links: [
+      { label: "Manifiesto", href: "#manifiesto" },
+      { label: "Impacto", href: "#impacto" },
+      { label: "Misiones", href: "#proyectos" },
+      { label: "Aliados", href: "#aliados" },
+      { label: "Equipo", href: "#equipo" },
+      { label: "Contacto", href: "#contacto" },
+    ],
+    ctaLabel: "Únete a la Misión",
+    ctaHref: "#contacto",
+  },
+
+  hero: {
+    eyebrow: "Convocatoria abierta · Misión SEEC 2027 · NASA Space Center Houston",
+    titleLines: ["Educación que despega.", "Horizonte que no termina."],
+    subtitle:
+      "Un ecosistema independiente de innovación STEAM que transpone protocolos de la aviación comercial —Crew Resource Management y FORDEC— a la formación docente, la cultura Maker y la proyección internacional de talento educativo.",
+    ctaPrimary: { label: "Inicia tu Despegue", href: "#contacto" },
+    ctaSecondary: { label: "Ver Misiones Globales", href: "#proyectos" },
+    badges: [
+      { label: "Avalado STPS", icon: "shield" },
+      { label: "Reconocimiento Senado 2026", icon: "award" },
+      { label: "Presencia en 4 continentes", icon: "globe" },
+    ],
+  },
+
+  manifiesto: {
+    eyebrow: "Manifiesto",
+    titulo: "Cinco disciplinas, un mismo vuelo",
+    descripcion:
+      "STEAM no es una materia: es una tripulación. Cada pilar opera como una estación de control distinta, coordinada bajo una sola torre de mando.",
+    pilares: [
+      {
+        icon: "flask",
+        titulo: "Ciencia",
+        descripcion:
+          "Método científico aplicado a problemas reales, desde el aula hasta la comunidad.",
+      },
+      {
+        icon: "cpu",
+        titulo: "Tecnología",
+        descripcion:
+          "Herramientas digitales e inteligencia artificial integradas a la práctica docente.",
+      },
+      {
+        icon: "wrench",
+        titulo: "Ingeniería",
+        descripcion:
+          "Cultura Maker: prototipar, fallar rápido, iterar y construir con las manos.",
+      },
+      {
+        icon: "palette",
+        titulo: "Arte",
+        descripcion:
+          "Identidad visual y narrativa como motor de comunicación científica.",
+      },
+      {
+        icon: "sigma",
+        titulo: "Matemáticas",
+        descripcion:
+          "Pensamiento lógico-estructural como lenguaje común de todas las disciplinas.",
+      },
+    ],
+    protocolo: {
+      titulo: "Protocolo CRM + FORDEC",
+      descripcion:
+        "Adaptamos el Crew Resource Management y la metodología FORDEC de la aviación comercial a la gestión de equipos educativos: comunicación cerrada, toma de decisiones bajo presión y cero tolerancia al error evitable.",
+    },
+  },
+
+  impacto: {
+    eyebrow: "Impacto",
+    titulo: "Números que despegan",
+    metricas: [
+      { valor: "85", sufijo: "", etiqueta: "Docentes en delegación SEEC Houston 2026", icon: "users" },
+      { valor: "3", sufijo: "", etiqueta: "Medallas internacionales de honor", icon: "award" },
+      { valor: "4", sufijo: "", etiqueta: "Continentes con presencia activa", icon: "globe" },
+      { valor: "1", sufijo: "", etiqueta: "Reconocimiento oficial en el Senado", icon: "shield" },
+    ],
+  },
+
+  proyectos: {
+    eyebrow: "Misiones Globales",
+    titulo: "Donde la teoría toca tierra",
+    descripcion:
+      "Cada proyecto es una misión con bitácora propia. Filtra por categoría y explora el alcance real del ecosistema Horizonte Cero.",
+    categorias: ["Todas", "Aeroespacial", "Cultura Maker", "Misiones Internacionales", "Impacto Social"],
+    items: [
+      {
+        titulo: "Misión SEEC Houston 2026",
+        categoria: "Aeroespacial",
+        descripcion:
+          "Logística integral de movilidad, hospedaje y documentación para 85 profesores e investigadores en el Space Exploration Educators Conference, NASA Space Center Houston. Reconocimiento oficial en el Senado.",
+        icon: "plane",
+        destacado: true,
+      },
+      {
+        titulo: "Misión SEEC Houston 2027",
+        categoria: "Misiones Internacionales",
+        descripcion:
+          "Convocatoria abierta. Registro, entrenamientos especializados y postulación de talleres y ponencias para la nueva delegación internacional ante la comunidad aeroespacial global.",
+        icon: "satellite",
+        destacado: true,
+        enProceso: true,
+      },
+      {
+        titulo: "La Espiral Dorada",
+        categoria: "Cultura Maker",
+        descripcion:
+          "Estrategia y contenido visual interactivo para un proyecto STEAM de vanguardia. Medalla de Oro, Tailandia.",
+        icon: "award",
+      },
+      {
+        titulo: "Honor Corea del Sur",
+        categoria: "Misiones Internacionales",
+        descripcion:
+          "Codiseño visual y participación directa en proyecto de innovación educativa galardonado con medalla de honor.",
+        icon: "globe",
+      },
+      {
+        titulo: "Honor Londres",
+        categoria: "Misiones Internacionales",
+        descripcion:
+          "Participación y diseño visual en iniciativa STEAM reconocida con medalla de honor internacional.",
+        icon: "globe",
+      },
+      {
+        titulo: "Seminario UTM Zimapán",
+        categoria: "Aeroespacial",
+        descripcion:
+          "Conferencia especializada de logística aplicada basada en disciplinas aeronáuticas para la Universidad Tecnológica Minera de Zimapán.",
+        icon: "graduation",
+      },
+      {
+        titulo: "Domingos de Ciencia · Tula de Allende",
+        categoria: "Impacto Social",
+        descripcion:
+          "Programa semanal de divulgación científica en colaboración con instituciones educativas locales de la región.",
+        icon: "flask",
+      },
+      {
+        titulo: "Ingeniería Social Ambiental",
+        categoria: "Impacto Social",
+        descripcion:
+          "Soporte en procesos de salud ambiental comunitaria junto a colectivos de especialistas como 'Los Muchachos'.",
+        icon: "wrench",
+      },
+    ],
+  },
+
+  aliados: {
+    eyebrow: "Respaldo institucional",
+    titulo: "Confianza que viaja con nosotros",
+    logos: [
+      { nombre: "STPS", src: "/assets/logos/stps.svg" },
+      { nombre: "NASA Space Center Houston", src: "/assets/logos/nasa-scH.svg" },
+      { nombre: "SEEC", src: "/assets/logos/seec.svg" },
+      { nombre: "Universidad Tecnológica Minera de Zimapán", src: "/assets/logos/utm-zimapan.svg" },
+      { nombre: "Senado de la República", src: "/assets/logos/senado.svg" },
+      { nombre: "Los Muchachos", src: "/assets/logos/los-muchachos.svg" },
+    ],
+  },
+
+  equipo: {
+    eyebrow: "Tripulación de mando",
+    titulo: "Quién pilota Horizonte Cero",
+    integrantes: [
+      {
+        nombre: "Drnda. Erika Corina Sánchez Pastrana",
+        rol: "Dirección Académica, Fundadora y Coordinación General de Innovación",
+        foto: "/assets/team/erika-sanchez.jpg",
+      },
+      {
+        nombre: "Lic. Erick Arturo Sánchez Reus",
+        rol: "Gestión Administrativa, Estrategia Digital y Logística Internacional",
+        foto: "/assets/team/erick-sanchez.jpg",
+      },
+      {
+        nombre: "Dra. Karla Lorena Montoya Cisneros",
+        rol: "Coordinación Académica y Desarrollo de Talleres de Certificación",
+        foto: "/assets/team/karla-montoya.jpg",
+      },
+      {
+        nombre: "Claudia Elizabeth Rivera Jacinto",
+        rol: "Identidad Corporativa y Logística de Uniformes Oficiales de Delegaciones",
+        foto: "/assets/team/claudia-rivera.jpg",
+      },
+    ],
+  },
+
+  contacto: {
+    eyebrow: "Plan de vuelo",
+    titulo: "¿Listo para alcanzar tu propio horizonte cero?",
+    descripcion:
+      "Docentes, colegios aliados, universidades e inversionistas: la torre de control está abierta. Inicia comunicación y diseñemos juntos tu ruta hacia la próxima misión.",
+    ctaLabel: "Solicitar información",
+    correo: "contacto@horizontecero.mx",
+    ubicacion: "Hidalgo, México · Operación internacional",
+  },
+
+  footer: {
+    nombre: "Maker STEAM Horizonte Cero",
+    descripcion:
+      "Iniciativa educativa independiente. Inspiración que alcanza las estrellas.",
+    columnas: [
+      {
+        titulo: "Navegación",
+        enlaces: [
+          { label: "Manifiesto", href: "#manifiesto" },
+          { label: "Impacto", href: "#impacto" },
+          { label: "Misiones", href: "#proyectos" },
+          { label: "Equipo", href: "#equipo" },
+        ],
+      },
+      {
+        titulo: "Legal",
+        enlaces: [
+          { label: "Aviso de privacidad", href: "#" },
+          { label: "Términos de colaboración", href: "#" },
+        ],
+      },
+    ],
+    redes: [
+      { plataforma: "linkedin", href: "#" },
+      { plataforma: "instagram", href: "#" },
+      { plataforma: "mail", href: "mailto:contacto@horizontecero.mx" },
+    ],
+    copyright: `© ${new Date().getFullYear()} Maker STEAM Horizonte Cero. Todos los derechos reservados.`,
+  },
+};
+
+/* ============================================================================
+   ICON MAP — traduce strings del data object a componentes Lucide
+   ============================================================================ */
+
+const ICONS = {
+  rocket: Rocket,
+  shield: ShieldCheck,
+  award: Award,
+  globe: Globe2,
+  users: Users,
+  flask: FlaskConical,
+  cpu: Cpu,
+  wrench: Wrench,
+  palette: Palette,
+  sigma: Sigma,
+  plane: Plane,
+  satellite: Satellite,
+  graduation: GraduationCap,
+  linkedin: Linkedin,
+  instagram: Instagram,
+  mail: Mail,
+};
+
+function Icon({ name, className }) {
+  const Cmp = ICONS[name] || Star;
+  return <Cmp className={className} />;
+}
+
+/* ============================================================================
+   NAVBAR
+   ============================================================================ */
+
+function Navbar({ data }) {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        scrolled ? "py-2" : "py-4"
+      }`}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="flex items-center justify-between rounded-2xl bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-2xl transition-all duration-300 px-4 sm:px-6 py-3">
+          <a href="#" className="flex items-center gap-2 group">
+            <span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-fuchsia-700 via-rose-700 to-red-900 shadow-lg shadow-rose-900/40 group-hover:scale-105 transition-transform duration-300">
+              <Icon name={data.logoIcon} className="h-5 w-5 text-white" />
+            </span>
+            <span className="font-semibold tracking-tight text-white text-sm sm:text-base">
+              {data.logoText}
+            </span>
+          </a>
+
+          <nav className="hidden md:flex items-center gap-1">
+            {data.links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="px-3 py-2 text-sm text-slate-300 rounded-lg hover:text-white hover:bg-white/5 transition-colors duration-200"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          <a
+            href={data.ctaHref}
+            className="hidden md:inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-rose-700 to-fuchsia-800 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-rose-900/30 hover:scale-105 hover:shadow-rose-500/30 transition-all duration-300"
+          >
+            {data.ctaLabel}
+            <ArrowRight className="h-4 w-4" />
+          </a>
+
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="md:hidden text-slate-200 p-2 rounded-lg hover:bg-white/5 transition-colors"
+            aria-label="Abrir menú"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+
+        {open && (
+          <div className="md:hidden mt-2 rounded-2xl bg-slate-900/60 backdrop-blur-md border border-white/10 shadow-2xl px-4 py-4 flex flex-col gap-1 animate-in fade-in slide-in-from-top-2 duration-200">
+            {data.links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="px-3 py-2.5 text-sm text-slate-300 rounded-lg hover:text-white hover:bg-white/5 transition-colors"
+              >
+                {l.label}
+              </a>
+            ))}
+            <a
+              href={data.ctaHref}
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-rose-700 to-fuchsia-800 px-4 py-2.5 text-sm font-medium text-white"
+            >
+              {data.ctaLabel}
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
+
+/* ============================================================================
+   HERO
+   ============================================================================ */
+
+function StarField() {
+  const stars = useRef(
+    Array.from({ length: 70 }, () => ({
+      top: Math.random() * 100,
+      left: Math.random() * 100,
+      size: Math.random() * 2 + 0.5,
+      delay: Math.random() * 5,
+      dur: Math.random() * 3 + 2,
+    }))
+  ).current;
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {stars.map((s, i) => (
+        <span
+          key={i}
+          className="absolute rounded-full bg-white"
+          style={{
+            top: `${s.top}%`,
+            left: `${s.left}%`,
+            width: `${s.size}px`,
+            height: `${s.size}px`,
+            opacity: 0.6,
+            animation: `hc-twinkle ${s.dur}s ease-in-out ${s.delay}s infinite`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Hero({ data }) {
+  return (
+    <section className="relative min-h-screen flex items-center pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950 to-[#1a0a14]" />
+      <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-rose-900/20 blur-3xl" />
+      <StarField />
+
+      <div className="relative mx-auto max-w-5xl text-center">
+        <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-2xl px-4 py-1.5 text-xs sm:text-sm text-rose-200 mb-8">
+          <Radio className="h-3.5 w-3.5 text-rose-400" />
+          {data.eyebrow}
+        </div>
+
+        <h1 className="font-bold tracking-tight text-4xl sm:text-6xl lg:text-7xl leading-[1.05]">
+          {data.titleLines.map((line, i) => (
+            <span
+              key={i}
+              className={
+                i === 0
+                  ? "block text-white"
+                  : "block bg-gradient-to-r from-rose-400 via-fuchsia-400 to-amber-300 bg-clip-text text-transparent"
+              }
+            >
+              {line}
+            </span>
+          ))}
+        </h1>
+
+        <p className="mt-6 max-w-2xl mx-auto text-slate-400 text-base sm:text-lg leading-relaxed">
+          {data.subtitle}
+        </p>
+
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href={data.ctaPrimary.href}
+            className="group relative inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-700 via-fuchsia-800 to-rose-900 px-7 py-3.5 text-sm font-semibold text-white shadow-xl shadow-rose-900/40 hover:scale-105 transition-all duration-300"
+          >
+            <span className="absolute inset-0 rounded-xl bg-rose-500/40 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+            <Rocket className="h-4 w-4" />
+            {data.ctaPrimary.label}
+          </a>
+          <a
+            href={data.ctaSecondary.href}
+            className="inline-flex items-center gap-2 rounded-xl bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-2xl px-7 py-3.5 text-sm font-medium text-slate-200 hover:scale-105 hover:shadow-cyan-500/20 transition-all duration-300"
+          >
+            {data.ctaSecondary.label}
+            <ChevronRight className="h-4 w-4" />
+          </a>
+        </div>
+
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-3">
+          {data.badges.map((b) => (
+            <div
+              key={b.label}
+              className="inline-flex items-center gap-2 rounded-full bg-slate-900/40 backdrop-blur-md border border-white/10 px-4 py-2 text-xs text-slate-300"
+            >
+              <Icon name={b.icon} className="h-3.5 w-3.5 text-rose-400" />
+              {b.label}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes hc-twinkle {
+          0%, 100% { opacity: 0.15; }
+          50% { opacity: 0.9; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ============================================================================
+   MANIFIESTO
+   ============================================================================ */
+
+function Manifiesto({ data }) {
+  return (
+    <section id="manifiesto" className="relative px-4 sm:px-6 py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading eyebrow={data.eyebrow} titulo={data.titulo} descripcion={data.descripcion} center />
+
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {data.pilares.map((p) => (
+            <div
+              key={p.titulo}
+              className="group rounded-2xl bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-2xl transition-all duration-300 p-6 hover:scale-105 hover:shadow-cyan-500/20"
+            >
+              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-rose-700/30 to-fuchsia-800/30 border border-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Icon name={p.icon} className="h-5 w-5 text-rose-300" />
+              </div>
+              <h3 className="text-white font-semibold mb-1.5">{p.titulo}</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">{p.descripcion}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 rounded-2xl bg-gradient-to-br from-slate-900/60 to-rose-950/30 backdrop-blur-md border border-white/10 shadow-2xl p-8 sm:p-10 flex flex-col sm:flex-row gap-6 items-start">
+          <div className="h-12 w-12 shrink-0 rounded-xl bg-gradient-to-br from-rose-700 to-fuchsia-800 flex items-center justify-center">
+            <Plane className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <h3 className="text-white font-semibold text-lg mb-2">{data.protocolo.titulo}</h3>
+            <p className="text-slate-400 leading-relaxed text-sm sm:text-base">{data.protocolo.descripcion}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================================
+   IMPACTO / MÉTRICAS
+   ============================================================================ */
+
+function Impacto({ data }) {
+  return (
+    <section id="impacto" className="relative px-4 sm:px-6 py-24 sm:py-32 bg-gradient-to-b from-transparent via-rose-950/10 to-transparent">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading eyebrow={data.eyebrow} titulo={data.titulo} center />
+
+        <div className="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {data.metricas.map((m) => (
+            <div
+              key={m.etiqueta}
+              className="rounded-2xl bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-2xl transition-all duration-300 p-6 sm:p-8 text-center hover:scale-105 hover:shadow-cyan-500/20"
+            >
+              <Icon name={m.icon} className="h-6 w-6 text-rose-400 mx-auto mb-3" />
+              <div className="font-bold text-4xl sm:text-5xl bg-gradient-to-r from-rose-400 to-amber-300 bg-clip-text text-transparent">
+                {m.valor}
+                {m.sufijo}
+              </div>
+              <p className="mt-2 text-xs sm:text-sm text-slate-400 leading-snug">{m.etiqueta}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================================
+   PROYECTOS — Filtros interactivos
+   ============================================================================ */
+
+function Proyectos({ data }) {
+  const [filtro, setFiltro] = useState("Todas");
+
+  const visibles =
+    filtro === "Todas" ? data.items : data.items.filter((p) => p.categoria === filtro);
+
+  return (
+    <section id="proyectos" className="relative px-4 sm:px-6 py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading eyebrow={data.eyebrow} titulo={data.titulo} descripcion={data.descripcion} center />
+
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+          {data.categorias.map((c) => (
+            <button
+              key={c}
+              onClick={() => setFiltro(c)}
+              className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all duration-300 ${
+                filtro === c
+                  ? "bg-gradient-to-r from-rose-700 to-fuchsia-800 border-transparent text-white shadow-lg shadow-rose-900/30"
+                  : "bg-slate-900/40 backdrop-blur-md border-white/10 text-slate-300 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {visibles.map((p) => (
+            <article
+              key={p.titulo}
+              className={`relative rounded-2xl bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-2xl transition-all duration-300 p-6 hover:scale-105 hover:shadow-cyan-500/20 ${
+                p.destacado ? "ring-1 ring-rose-500/30" : ""
+              }`}
+            >
+              {p.enProceso && (
+                <span className="absolute top-4 right-4 text-[10px] uppercase tracking-wide font-semibold bg-amber-500/15 text-amber-300 border border-amber-400/20 rounded-full px-2.5 py-1">
+                  Convocatoria abierta
+                </span>
+              )}
+              <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-rose-700/30 to-fuchsia-800/30 border border-white/10 flex items-center justify-center mb-4">
+                <Icon name={p.icon} className="h-5 w-5 text-rose-300" />
+              </div>
+              <span className="text-[11px] uppercase tracking-wide text-rose-300/80 font-medium">
+                {p.categoria}
+              </span>
+              <h3 className="text-white font-semibold text-lg mt-1.5 mb-2">{p.titulo}</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">{p.descripcion}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================================
+   ALIADOS — Marquee infinito
+   ============================================================================ */
+
+function Aliados({ data }) {
+  const logos = [...data.logos, ...data.logos];
+  return (
+    <section id="aliados" className="relative py-20 sm:py-24 overflow-hidden">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <SectionHeading eyebrow={data.eyebrow} titulo={data.titulo} center />
+      </div>
+
+      <div className="relative mt-12 overflow-hidden">
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-slate-950 to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-slate-950 to-transparent z-10" />
+        <div className="flex w-max gap-4 hc-marquee">
+          {logos.map((l, i) => (
+            <div
+              key={`${l.nombre}-${i}`}
+              className="flex items-center justify-center h-20 w-56 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-2xl px-6 shrink-0"
+            >
+              <span className="text-slate-300 text-sm font-medium text-center">{l.nombre}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        .hc-marquee {
+          animation: hc-scroll 32s linear infinite;
+        }
+        @keyframes hc-scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ============================================================================
+   EQUIPO
+   ============================================================================ */
+
+function Equipo({ data }) {
+  return (
+    <section id="equipo" className="relative px-4 sm:px-6 py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading eyebrow={data.eyebrow} titulo={data.titulo} center />
+
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {data.integrantes.map((m) => (
+            <div
+              key={m.nombre}
+              className="rounded-2xl bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-2xl transition-all duration-300 p-6 text-center hover:scale-105 hover:shadow-cyan-500/20"
+            >
+              <div className="mx-auto h-20 w-20 rounded-full bg-gradient-to-br from-rose-700/40 to-fuchsia-800/40 border border-white/10 flex items-center justify-center overflow-hidden mb-4">
+                <img
+                  src={m.foto}
+                  alt={m.nombre}
+                  className="h-full w-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
+              </div>
+              <h3 className="text-white font-semibold text-sm leading-snug">{m.nombre}</h3>
+              <p className="mt-2 text-xs text-slate-400 leading-relaxed">{m.rol}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================================
+   CONTACTO
+   ============================================================================ */
+
+function Contacto({ data }) {
+  return (
+    <section id="contacto" className="relative px-4 sm:px-6 py-24 sm:py-32">
+      <div className="mx-auto max-w-4xl rounded-3xl bg-gradient-to-br from-slate-900/60 to-rose-950/30 backdrop-blur-md border border-white/10 shadow-2xl p-10 sm:p-14 text-center relative overflow-hidden">
+        <div className="absolute -top-20 right-0 h-64 w-64 rounded-full bg-rose-700/20 blur-3xl" />
+        <span className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 text-xs text-rose-200 mb-6">
+          <Satellite className="h-3.5 w-3.5 text-rose-400" />
+          {data.eyebrow}
+        </span>
+        <h2 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">{data.titulo}</h2>
+        <p className="mt-4 max-w-xl mx-auto text-slate-400 text-sm sm:text-base leading-relaxed">
+          {data.descripcion}
+        </p>
+        <a
+          href={`mailto:${data.correo}`}
+          className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-700 to-fuchsia-800 px-7 py-3.5 text-sm font-semibold text-white shadow-xl shadow-rose-900/40 hover:scale-105 transition-all duration-300"
+        >
+          <Mail className="h-4 w-4" />
+          {data.ctaLabel}
+        </a>
+        <div className="mt-6 flex items-center justify-center gap-1.5 text-xs text-slate-500">
+          <MapPin className="h-3.5 w-3.5" />
+          {data.ubicacion}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+
+function Footer({ data }) {
+  return (
+    <footer className="relative px-4 sm:px-6 pt-16 pb-8 border-t border-white/5">
+      <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-3 gap-10">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-rose-700 to-fuchsia-800">
+              <Rocket className="h-4 w-4 text-white" />
+            </span>
+            <span className="text-white font-semibold text-sm">{data.nombre}</span>
+          </div>
+          <p className="mt-4 text-sm text-slate-500 leading-relaxed max-w-xs">{data.descripcion}</p>
+          <div className="mt-5 flex items-center gap-3">
+            {data.redes.map((r) => (
+              <a
+                key={r.plataforma}
+                href={r.href}
+                className="h-9 w-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                <Icon name={r.plataforma} className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {data.columnas.map((col) => (
+          <div key={col.titulo}>
+            <h4 className="text-white text-sm font-semibold mb-4">{col.titulo}</h4>
+            <ul className="space-y-2">
+              {col.enlaces.map((e) => (
+                <li key={e.label}>
+                  <a href={e.href} className="text-sm text-slate-500 hover:text-slate-300 transition-colors">
+                    {e.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div className="mx-auto max-w-6xl mt-10 pt-6 border-t border-white/5 text-center text-xs text-slate-600">
+        {data.copyright}
+      </div>
+    </footer>
+  );
+}
+
+/* ============================================================================
+   UI helper compartido
+   ============================================================================ */
+
+function SectionHeading({ eyebrow, titulo, descripcion, center }) {
+  return (
+    <div className={center ? "text-center max-w-2xl mx-auto" : ""}>
+      <span className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest font-medium text-rose-300/80">
+        {eyebrow}
+      </span>
+      <h2 className="mt-3 text-2xl sm:text-4xl font-bold text-white tracking-tight">{titulo}</h2>
+      {descripcion && (
+        <p className="mt-4 text-slate-400 text-sm sm:text-base leading-relaxed">{descripcion}</p>
+      )}
+    </div>
+  );
+}
+
+/* ============================================================================
+   APP
+   ============================================================================ */
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-slate-950 text-white font-sans antialiased selection:bg-rose-500/30">
+      <Navbar data={LANDING_DATA.navbar} />
+      <Hero data={LANDING_DATA.hero} />
+      <Manifiesto data={LANDING_DATA.manifiesto} />
+      <Impacto data={LANDING_DATA.impacto} />
+      <Proyectos data={LANDING_DATA.proyectos} />
+      <Aliados data={LANDING_DATA.aliados} />
+      <Equipo data={LANDING_DATA.equipo} />
+      <Contacto data={LANDING_DATA.contacto} />
+      <Footer data={LANDING_DATA.footer} />
+    </div>
+  );
+}
