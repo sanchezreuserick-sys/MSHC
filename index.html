@@ -386,6 +386,132 @@
 
   section{ scroll-margin-top: 20px; }
 
+  /* ---------- Asistente IA (chat widget) ---------- */
+  .ai-toggle{
+    position: fixed;
+    right: 22px; bottom: 22px;
+    z-index: 60;
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    border: 1px solid rgba(34,211,238,0.4);
+    background: linear-gradient(135deg, var(--accent), var(--cyan));
+    box-shadow: 0 8px 28px rgba(239,20,80,0.35), 0 0 0 6px rgba(34,211,238,0.08);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: 0.25s ease;
+  }
+  .ai-toggle:hover{ transform: translateY(-3px) scale(1.04); }
+  .ai-toggle svg{ width: 26px; height: 26px; fill: #fff; }
+  .ai-toggle .ping{
+    position: absolute; inset: -4px; border-radius: 50%;
+    border: 1px solid rgba(34,211,238,0.5);
+    animation: ping 2.4s ease-out infinite;
+  }
+  @keyframes ping{ 0%{ transform: scale(0.9); opacity: 0.8; } 100%{ transform: scale(1.35); opacity: 0; } }
+
+  .ai-panel{
+    position: fixed;
+    right: 22px; bottom: 92px;
+    z-index: 60;
+    width: 360px; max-width: calc(100vw - 44px);
+    height: 480px; max-height: calc(100vh - 140px);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    background: rgba(10,14,26,0.82);
+    -webkit-backdrop-filter: blur(26px) saturate(160%);
+    backdrop-filter: blur(26px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+  }
+  .ai-panel.open{ display: flex; }
+
+  .ai-head{
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.03);
+  }
+  .ai-head .dot{ width: 9px; height: 9px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+  .ai-head strong{ font-family: var(--font-display); font-size: 13.5px; }
+  .ai-head span{ font-size: 10.5px; color: var(--muted-2); display: block; }
+  .ai-close{
+    margin-left: auto; cursor: pointer; color: var(--muted);
+    width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+    border-radius: 8px; transition: 0.2s ease;
+  }
+  .ai-close:hover{ background: rgba(255,255,255,0.08); color: var(--text); }
+
+  .ai-body{
+    flex: 1; overflow-y: auto; padding: 14px 14px 6px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .ai-msg{ max-width: 88%; font-size: 12.8px; line-height: 1.55; padding: 10px 13px; border-radius: 13px; }
+  .ai-msg.bot{
+    align-self: flex-start;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    border-bottom-left-radius: 4px;
+  }
+  .ai-msg.user{
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--accent), #b0103d);
+    color: #fff; font-weight: 600;
+    border-bottom-right-radius: 4px;
+  }
+  .ai-msg a{ color: var(--cyan); }
+  .ai-msg.bot .chips{ display:flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .ai-chip{
+    font-size: 11px; font-weight: 700; cursor: pointer;
+    padding: 6px 10px; border-radius: 999px;
+    background: var(--cyan-soft); color: var(--cyan);
+    border: 1px solid rgba(34,211,238,0.3);
+    transition: 0.2s ease;
+  }
+  .ai-chip:hover{ background: rgba(34,211,238,0.22); }
+
+  .ai-suggest{
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 0 14px 10px;
+  }
+
+  .ai-inputrow{
+    display: flex; gap: 8px;
+    padding: 12px;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.02);
+  }
+  .ai-inputrow input{
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-size: 12.5px;
+    font-family: var(--font-body);
+  }
+  .ai-inputrow input::placeholder{ color: var(--muted-2); }
+  .ai-inputrow input:focus{ outline: none; border-color: rgba(34,211,238,0.5); }
+  .ai-send{
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--cyan));
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ai-send svg{ width: 16px; height: 16px; fill: #fff; }
+
+  @media (max-width: 480px){
+    .ai-panel{ right: 12px; left: 12px; width: auto; bottom: 84px; }
+    .ai-toggle{ right: 16px; bottom: 16px; }
+  }
+
+  @media print{
+    .ai-toggle, .ai-panel{ display: none !important; }
+  }
+
   @media (max-width: 980px){
     .wrap{ grid-template-columns: 1fr; }
     .sidebar{ position: static; }
@@ -765,5 +891,181 @@
       </div>
     </main>
   </div>
+
+  <!-- ---------- Asistente IA (sin backend) ---------- -->
+  <button class="ai-toggle" id="aiToggle" aria-label="Abrir asistente">
+    <span class="ping"></span>
+    <svg viewBox="0 0 24 24"><path d="M12 2a1 1 0 0 1 1 1v1.06A8.004 8.004 0 0 1 20 12v1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 8 8 0 0 1-16 0 2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2v-1a8.004 8.004 0 0 1 7-7.94V3a1 1 0 0 1 1-1Zm-3 9a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
+  </button>
+
+  <div class="ai-panel" id="aiPanel">
+    <div class="ai-head">
+      <span class="dot"></span>
+      <div>
+        <strong>Asistente Horizonte Cero</strong>
+        <span>Respuestas al instante · ES / EN</span>
+      </div>
+      <div class="ai-close" id="aiClose">✕</div>
+    </div>
+    <div class="ai-body" id="aiBody"></div>
+    <div class="ai-suggest" id="aiSuggest"></div>
+    <div class="ai-inputrow">
+      <input id="aiInput" type="text" placeholder="Escribe tu pregunta / Type your question..." />
+      <button class="ai-send" id="aiSend" aria-label="Enviar">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    // ---------- Base de conocimiento (contenido real del sitio) ----------
+    var KB = [
+      { id:'evento', kw:['evento','seec','que es','qué es','conferencia','sobre'],
+        es:'<strong>SEEC — Space Exploration Educators Conference</strong> es la conferencia internacional en Space Center Houston (NASA). Maker STEAM Horizonte Cero organiza la delegación académica hispanohablante para asistir en Houston 2027.',
+        en:'<strong>SEEC — Space Exploration Educators Conference</strong> is the international conference at Space Center Houston (NASA). Maker STEAM Horizonte Cero organizes the Spanish-speaking academic delegation for Houston 2027.',
+        chips:['fecha','registro'] },
+      { id:'fecha', kw:['fecha','cuando','cuándo','date','when','febrero'],
+        es:'La delegación viaja en <strong>febrero de 2027</strong>, sede Space Center Houston (NASA), modalidad presencial y bilingüe.',
+        en:'The delegation travels in <strong>February 2027</strong>, hosted at Space Center Houston (NASA), on-site and bilingual format.',
+        chips:['registro','requisitos'] },
+      { id:'registro', kw:['registro','registrar','inscrib','como me uno','how to join','sign up','apply','participar'],
+        es:'Para registrarte, envía un correo a <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> con el asunto "REGISTRO DE INTERÉS DELEGACIÓN HOUSTON 2027 — [Tu Nombre]" y adjunta tu documentación. También puedes escribir por WhatsApp a Administración.',
+        en:'To register, email <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> with subject "HOUSTON 2027 DELEGATION — EXPRESSION OF INTEREST — [Your Name]" and attach your documents. You can also reach Administration via WhatsApp.',
+        chips:['requisitos','contacto'],
+        actions:[{label:'✉️ Email de registro', href:'mailto:makersteamhorizontecero@gmail.com?subject=REGISTRO%20DE%20INTER%C3%89S%20DELEGACI%C3%93N%20HOUSTON%202027%20%E2%80%94%20%5BTu%20Nombre%5D'},{label:'💬 WhatsApp Administración', href:'https://wa.me/5218147062703?text=Hola%2C%20solicito%20informaci%C3%B3n%20para%20registro%20en%20la%20Delegaci%C3%B3n%20Houston%202027'}] },
+      { id:'requisitos', kw:['requisito','documento','pasaporte','visa','papeles','requirement','passport','document'],
+        es:'Documentación mínima recomendada: pasaporte vigente (mínimo 6 meses post-evento), visa B1/B2, identificación oficial, constancia de función educativa, carta de intención y compromiso de réplica institucional.',
+        en:'Recommended minimum documentation: valid passport (6+ months post-event), B1/B2 visa, official ID, proof of educational role, letter of intent, and institutional replication commitment.',
+        chips:['registro','uniforme'] },
+      { id:'uniforme', kw:['uniforme','ropa','chamarra','polo','oxford','playera','uniform','jacket','shirt'],
+        es:'El uniforme oficial <strong>"Marea Roja"</strong> incluye chamarra distintiva, playera negra ergonómica, camisa Oxford blanca y polo con insignia. Puedes solicitarlo por WhatsApp con Branding & Uniformes.',
+        en:'The official <strong>"Red Tide"</strong> uniform includes a signature jacket, ergonomic black t-shirt, white Oxford shirt, and an insignia polo. Request it via WhatsApp with Branding & Uniforms.',
+        chips:['equipo','requisitos'],
+        actions:[{label:'💬 Solicitar uniforme', href:'https://wa.me/5215529058989?text=Hola%2C%20solicito%20informaci%C3%B3n%20sobre%20uniformes%20oficiales'}] },
+      { id:'programa', kw:['programa','mentoria','mentoría','logistica','logística','program','mentorship','support'],
+        es:'El programa incluye mentoría académica en metodologías STEAM, soporte logístico (transporte, hospedaje), vinculación internacional y réplica institucional al regresar.',
+        en:'The program includes academic mentorship in STEAM methodologies, logistical support (travel, lodging), international networking, and institutional replication upon return.',
+        chips:['evento','equipo'] },
+      { id:'equipo', kw:['equipo','directorio','quien','quién','contacto','erick','erika','karla','claudia','team','who','director'],
+        es:'El equipo directivo: Dra. Erika Sánchez Pastrana (Dirección Académica), Lic. Erick Sánchez Reus (Administración), Dra. Karla Montoya (Coordinación SEEC 27) y Lic. Claudia Rivera (Imagen y Uniformes). Puedes ver sus contactos en la sección "Equipo".',
+        en:'Leadership team: Dr. Erika Sánchez Pastrana (Academic Director), Lic. Erick Sánchez Reus (Administration), Dr. Karla Montoya (SEEC 27 Coordination), and Lic. Claudia Rivera (Branding & Uniforms). See the "Team" section for contact details.',
+        chips:['contacto','registro'] },
+      { id:'contacto', kw:['contacto','correo','email','whatsapp','telefono','teléfono','contact','phone'],
+        es:'Escríbenos a <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> o visita <a href="https://www.makersteam.space/" target="_blank" rel="noopener">makersteam.space</a>. También hay WhatsApp directo por área en la sección "Equipo".',
+        en:'Write to us at <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> or visit <a href="https://www.makersteam.space/" target="_blank" rel="noopener">makersteam.space</a>. Direct WhatsApp per area is listed in the "Team" section.',
+        chips:['registro','evento'] },
+      { id:'sede', kw:['sede','lugar','houston','venue','location','where','donde','dónde'],
+        es:'La sede es <strong>Space Center Houston (NASA)</strong>, Texas, con modalidad presencial y bilingüe.',
+        en:'The venue is <strong>Space Center Houston (NASA)</strong>, Texas, on-site and bilingual format.',
+        chips:['fecha','registro'] }
+    ];
+
+    var GREETING_ES = '¡Hola! 👋 Soy el asistente de Maker STEAM Horizonte Cero. Puedo responder sobre el evento, fechas, registro, requisitos, uniforme y contacto. ¿En qué te ayudo?';
+    var GREETING_EN = "Hi! 👋 I'm the Maker STEAM Horizonte Cero assistant. I can help with the event, dates, registration, requirements, uniform, and contact info. What do you need?";
+    var FALLBACK_ES = 'No tengo una respuesta exacta para eso, pero puedes escribir directamente a <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> y el equipo te responderá personalmente.';
+    var FALLBACK_EN = "I don't have an exact answer for that, but you can email <a href=\"mailto:makersteamhorizontecero@gmail.com\">makersteamhorizontecero@gmail.com</a> directly and the team will get back to you.";
+
+    var toggle = document.getElementById('aiToggle');
+    var panel = document.getElementById('aiPanel');
+    var closeBtn = document.getElementById('aiClose');
+    var body = document.getElementById('aiBody');
+    var suggestRow = document.getElementById('aiSuggest');
+    var input = document.getElementById('aiInput');
+    var sendBtn = document.getElementById('aiSend');
+    var started = false;
+
+    function isEnglish(text){
+      var enWords = ['when','where','how','what','who','date','venue','register','the','is','are'];
+      var t = ' ' + text.toLowerCase() + ' ';
+      var score = 0;
+      enWords.forEach(function(w){ if(t.indexOf(' '+w+' ') !== -1) score++; });
+      return score > 0;
+    }
+
+    function addMsg(html, who){
+      var div = document.createElement('div');
+      div.className = 'ai-msg ' + who;
+      div.innerHTML = html;
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+      return div;
+    }
+
+    function renderChips(entry){
+      suggestRow.innerHTML = '';
+      var topics = entry ? entry.chips : ['evento','registro','requisitos','uniforme'];
+      topics.slice(0,4).forEach(function(id){
+        var match = KB.filter(function(k){ return k.id === id; })[0];
+        if(!match) return;
+        var chip = document.createElement('span');
+        chip.className = 'ai-chip';
+        chip.textContent = match.id.charAt(0).toUpperCase() + match.id.slice(1);
+        chip.onclick = function(){ handleQuery(match.id); };
+        suggestRow.appendChild(chip);
+      });
+    }
+
+    function scoreEntry(entry, text){
+      var t = text.toLowerCase();
+      var score = 0;
+      entry.kw.forEach(function(k){ if(t.indexOf(k) !== -1) score += k.length; });
+      return score;
+    }
+
+    function handleQuery(rawText){
+      var text = rawText.trim();
+      if(!text) return;
+      addMsg(text.replace(/</g,'&lt;'), 'user');
+      var english = isEnglish(text);
+      var best = null, bestScore = 0;
+      KB.forEach(function(entry){
+        var s = scoreEntry(entry, text);
+        if(s > bestScore){ bestScore = s; best = entry; }
+      });
+      setTimeout(function(){
+        var msgDiv;
+        if(best && bestScore > 0){
+          msgDiv = addMsg(english ? best.en : best.es, 'bot');
+          if(best.actions){
+            var chipsWrap = document.createElement('div');
+            chipsWrap.className = 'chips';
+            best.actions.forEach(function(a){
+              var link = document.createElement('a');
+              link.href = a.href; link.target = '_blank'; link.rel = 'noopener';
+              link.className = 'ai-chip'; link.style.textDecoration = 'none';
+              link.textContent = a.label;
+              chipsWrap.appendChild(link);
+            });
+            msgDiv.appendChild(chipsWrap);
+          }
+        } else {
+          addMsg(english ? FALLBACK_EN : FALLBACK_ES, 'bot');
+        }
+        renderChips(best);
+      }, 260);
+    }
+
+    function openPanel(){
+      panel.classList.add('open');
+      if(!started){
+        started = true;
+        addMsg(GREETING_ES + '<br><span style="color:var(--muted-2);font-size:11px;">/ ' + GREETING_EN + '</span>', 'bot');
+        renderChips(null);
+      }
+      input.focus();
+    }
+
+    toggle.addEventListener('click', function(){
+      if(panel.classList.contains('open')){ panel.classList.remove('open'); }
+      else { openPanel(); }
+    });
+    closeBtn.addEventListener('click', function(){ panel.classList.remove('open'); });
+    sendBtn.addEventListener('click', function(){ handleQuery(input.value); input.value = ''; });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ handleQuery(input.value); input.value = ''; }
+    });
+  })();
+  </script>
 </body>
 </html>
