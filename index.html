@@ -1,387 +1,423 @@
-```.  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maker STEAM Horizonte Cero — Houston 2027 | Digital Platform (Bilingual)</title>
-  <style>
-    :root{
-      --bg: #f5f7fa;
-      --card: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --accent: #E11D48;
-      --accent-2: #4A9BA9;
-      --dark: #0F172A;
-      --shadow: 0 8px 24px rgba(17,24,39,0.07);
-      --radius: 14px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maker STEAM Horizonte Cero — Houston 2027 | Digital Platform (Bilingual)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0: #05070d;
+    --bg-1: #0a0e1a;
+    --bg-2: #0f1526;
+    --glass: rgba(255,255,255,0.045);
+    --glass-strong: rgba(255,255,255,0.075);
+    --glass-border: rgba(255,255,255,0.10);
+    --glass-hi: rgba(255,255,255,0.18);
+    --text: #eef2f8;
+    --muted: #93a1ba;
+    --muted-2: #64738f;
+    --accent: #ef1450;
+    --accent-soft: rgba(239,20,80,0.16);
+    --cyan: #22d3ee;
+    --cyan-soft: rgba(34,211,238,0.14);
+    --gold: #f2c46d;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
 
-    *{ box-sizing: border-box; margin: 0; padding: 0; }
-    body{
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      font-size: 15px;
-    }
+  *{ box-sizing: border-box; margin: 0; padding: 0; }
 
-    a{ color: var(--accent); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
+  html{ scroll-behavior: smooth; }
 
-    .wrap{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px;
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 18px;
-    }
+  body{
+    font-family: var(--font-body);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+    background: var(--bg-0);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
 
-    .sidebar{
-      position: sticky;
-      top: 16px;
-      height: fit-content;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px;
-    }
-    .sidebar .brand{
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
+  /* ---------- Fondo: campo estelar + nebulosas ---------- */
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+      radial-gradient(1px 1px at 8% 12%, rgba(255,255,255,0.55), transparent),
+      radial-gradient(1px 1px at 22% 68%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1.5px 1.5px at 38% 24%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 54% 82%, rgba(255,255,255,0.35), transparent),
+      radial-gradient(1.5px 1.5px at 68% 14%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 78% 58%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 91% 32%, rgba(255,255,255,0.45), transparent),
+      radial-gradient(1.5px 1.5px at 12% 90%, rgba(255,255,255,0.35), transparent),
+      radial-gradient(1px 1px at 46% 46%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 85% 78%, rgba(255,255,255,0.4), transparent);
+    background-repeat: repeat;
+    background-size: 100% 100%;
+  }
+  body::after{
+    content:"";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(700px circle at 82% -8%, rgba(239,20,80,0.16), transparent 60%),
+      radial-gradient(800px circle at -10% 30%, rgba(34,211,238,0.10), transparent 55%),
+      linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
+  }
 
-    .brand h3{
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-    .brand .title{
-      font-size: 15px;
-      font-weight: 750;
-      color: var(--text);
-    }
+  a{ color: var(--cyan); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
 
-    .toc{
-      list-style: none;
-      display: grid;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    .toc a{
-      display: block;
-      padding: 10px 10px;
-      border-radius: 10px;
-      color: var(--muted);
-      border: 1px solid transparent;
-      transition: 0.15s ease;
-      font-weight: 600;
-      font-size: 13px;
-    }
-    .toc a:hover{
-      background: #fff5f7;
-      color: var(--accent);
-      border-color: rgba(225,29,72,0.25);
-      text-decoration: none;
-    }
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 22px 60px;
+    display: grid;
+    grid-template-columns: 288px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
 
-    .sidebar .mini{
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-      display: grid;
-      gap: 8px;
-    }
+  /* ---------- Glass base ---------- */
+  .glass{
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    backdrop-filter: blur(22px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .glass::before{
+    content:"";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(160deg, var(--glass-hi), transparent 40%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 
-    main{
-      display: grid;
-      gap: 16px;
-    }
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    position: sticky;
+    top: 20px;
+    padding: 20px;
+  }
+  .sidebar .brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .brand img{
+    width: 46px; height: 46px; border-radius: 12px;
+    object-fit: contain; background: rgba(255,255,255,0.9);
+    padding: 6px; border: 1px solid var(--glass-border);
+  }
+  .brand h3{
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .brand .title{
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
 
-    .hero{
-      background: linear-gradient(135deg, var(--dark) 0%, #1E293B 100%);
-      color: #fff;
-      border-radius: var(--radius);
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .hero::before{
-      content:"";
-      position:absolute;
-      top:-40%;
-      right:-12%;
-      width: 420px;
-      height: 420px;
-      background: radial-gradient(circle, rgba(225,29,72,0.18) 0%, transparent 70%);
-      border-radius: 50%;
-    }
+  .toc{ list-style: none; display: grid; gap: 6px; }
+  .toc a{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    border: 1px solid transparent;
+    transition: 0.2s ease;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .toc a::before{
+    content: "";
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--muted-2);
+    transition: 0.2s ease;
+    flex-shrink: 0;
+  }
+  .toc a:hover{
+    background: var(--accent-soft);
+    color: #ffd7e2;
+    border-color: rgba(239,20,80,0.3);
+    text-decoration: none;
+  }
+  .toc a:hover::before{ background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 
-    .hero .row{
-      position: relative;
-      display: grid;
-      gap: 10px;
-    }
+  .sidebar .mini{
+    margin-top: 16px;
+    font-size: 11.5px;
+    color: var(--muted-2);
+    border-top: 1px solid var(--glass-border);
+    padding-top: 16px;
+    display: grid;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .sidebar .mini strong{ color: var(--muted); }
 
-    .badge{
-      display: inline-block;
-      width: fit-content;
-      background: var(--accent);
-      padding: 7px 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
+  main{ display: grid; gap: 18px; }
 
-    .hero h1{
-      font-size: 26px;
-      letter-spacing: -0.02em;
-      font-weight: 780;
-      margin-top: 6px;
-    }
-    .hero .sub{
-      color: rgba(255,255,255,0.86);
-      font-size: 14px;
-    }
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 34px 30px;
+    overflow: hidden;
+  }
+  .hero-spiral{
+    position: absolute;
+    top: 50%; right: -6%;
+    width: 480px; height: 480px;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .hero-spiral{ animation: spin 120s linear infinite; }
+  }
+  @keyframes spin{ to{ transform: translateY(-50%) rotate(360deg); } }
 
-    .hero .meta{
-      margin-top: 10px;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(140px,1fr));
-      gap: 10px;
-    }
-    .meta .pill{
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.85);
-    }
-    .pill strong{
-      display: block;
-      color: #fff;
-      font-size: 13px;
-      margin-bottom: 2px;
-    }
+  .hero .row{ position: relative; display: grid; gap: 12px; max-width: 640px; }
 
-    section.card{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px;
-    }
+  .badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    background: var(--accent-soft);
+    border: 1px solid rgba(239,20,80,0.35);
+    color: #ffb8c9;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .badge::before{
+    content:"";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
 
-    section.card h2{
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
+  .hero h1{
+    font-family: var(--font-display);
+    font-size: 34px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-top: 4px;
+    background: linear-gradient(135deg, #ffffff 0%, #c9d4e8 60%, #94a3ba 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero .sub{ color: var(--muted); font-size: 14.5px; }
 
-    .grid-3{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+  .hero .meta{
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(130px,1fr));
+    gap: 10px;
+  }
+  .meta .pill{
+    background: rgba(255,255,255,0.035);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 11px 13px;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .pill strong{
+    display: block; font-family: var(--font-display);
+    color: var(--text); font-size: 13px; margin-bottom: 3px; font-weight: 600;
+  }
 
-    .kpi{
-      background: #f9fafb;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
-    }
-    .kpi .num{ font-size: 22px; font-weight: 900; color: var(--accent); }
-    .kpi .lbl{ font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  section.card{ padding: 24px; }
+  section.card h2{
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  section.card h2::before{
+    content:"";
+    width: 4px; height: 18px;
+    background: linear-gradient(180deg, var(--accent), var(--cyan));
+    border-radius: 3px;
+  }
 
-    .two-lang{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 10px;
-    }
-    .lang{
-      background: #fbfbfc;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-    }
-    .lang .tag{
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    .lang p{ color: var(--muted); margin-bottom: 10px; }
-    .lang ul{ margin-left: 18px; color: var(--muted); }
-    .lang li{ margin-bottom: 7px; }
+  .grid-3{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+  .kpi{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 16px; text-align: center;
+    transition: 0.2s ease;
+  }
+  .kpi:hover{ border-color: rgba(239,20,80,0.35); transform: translateY(-2px); }
+  .kpi .num{
+    font-family: var(--font-display);
+    font-size: 24px; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--gold));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .kpi .lbl{ font-size: 11px; font-weight: 700; color: var(--muted-2); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
 
-    .btns{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .btn{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--accent);
-      background: var(--accent);
-      color: #fff;
-      font-weight: 800;
-      font-size: 13px;
-      text-decoration: none;
-      transition: 0.15s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); text-decoration: none; background: #C81841; border-color:#C81841; }
-    .btn.secondary{
-      background: transparent;
-      color: var(--text);
-      border-color: var(--border);
-    }
-    .btn.secondary:hover{
-      border-color: rgba(225,29,72,0.35);
-      color: var(--accent);
-      background: #fff5f7;
-    }
+  .two-lang{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+  .lang{
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+  }
+  .lang .tag{
+    font-family: var(--font-display);
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 8px;
+  }
+  .lang p{ color: var(--muted); margin-bottom: 10px; }
+  .lang ul{ margin-left: 18px; color: var(--muted); }
+  .lang li{ margin-bottom: 7px; }
+  .lang strong{ color: var(--text); }
 
-    .profiles{
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 12px;
-      margin-top: 10px;
-    }
-    .profile{
-      background: #f9fafb;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-    }
-    .profile .name{ font-weight: 900; font-size: 13px; margin-bottom: 4px; }
-    .profile .role{
-      font-size: 11px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-    .profile .contact{
-      font-size: 12px;
-      color: var(--muted);
-      display: grid;
-      gap: 6px;
-      word-break: break-word;
-    }
+  .btns{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .btn{
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 16px; border-radius: 12px;
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, var(--accent), #b0103d);
+    color: #fff; font-weight: 700; font-size: 13px;
+    text-decoration: none; transition: 0.2s ease;
+    box-shadow: 0 4px 18px rgba(239,20,80,0.28);
+  }
+  .btn:hover{ transform: translateY(-2px); text-decoration: none; box-shadow: 0 8px 24px rgba(239,20,80,0.4); }
+  .btn.secondary{
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    border-color: var(--glass-border);
+    box-shadow: none;
+  }
+  .btn.secondary:hover{
+    border-color: rgba(34,211,238,0.4);
+    color: var(--cyan);
+    background: var(--cyan-soft);
+    box-shadow: 0 6px 20px rgba(34,211,238,0.15);
+  }
 
-    .uniform{
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 12px;
-      margin-top: 10px;
-    }
-    .u-item{
-      background: #f9fafb;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
-    }
-    .u-item h4{ font-size: 13px; font-weight: 900; margin-bottom: 6px; text-align: left; }
-    .u-item p{ font-size: 12px; color: var(--muted); text-align: left; }
+  .profiles{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 10px; }
+  .profile{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    transition: 0.2s ease;
+  }
+  .profile:hover{ border-color: rgba(34,211,238,0.3); transform: translateY(-2px); }
+  .profile .name{ font-family: var(--font-display); font-weight: 600; font-size: 13.5px; margin-bottom: 4px; }
+  .profile .role{
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 12px;
+  }
+  .profile .contact{ font-size: 12px; color: var(--muted); display: grid; gap: 6px; word-break: break-word; }
 
-    .req-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .req{
-      background: #f9fafb;
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--accent);
-      border-radius: 12px;
-      padding: 12px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .req strong{ color: var(--text); display:block; margin-bottom: 4px; }
+  .uniform{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 10px; }
+  .u-item{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 16px; text-align: center;
+    transition: 0.2s ease;
+  }
+  .u-item:hover{ border-color: rgba(239,20,80,0.3); transform: translateY(-2px); }
+  .u-item h4{ font-family: var(--font-display); font-size: 13px; font-weight: 600; margin-bottom: 6px; text-align: left; }
+  .u-item p{ font-size: 11.5px; color: var(--muted); text-align: left; }
+  .uniform-sticker{
+    width: 92px; height: 92px; object-fit: contain; display: block; margin: 0 auto 12px;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+    background: rgba(255,255,255,0.92);
+    border-radius: 14px; padding: 8px;
+  }
 
-    .footer{
-      text-align: center;
-      padding: 16px;
-      color: var(--muted);
-      font-size: 12px;
-    }
+  .req-grid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 10px; }
+  .req{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 13px; font-size: 12px; color: var(--muted);
+  }
+  .req strong{ color: var(--text); display:block; margin-bottom: 4px; font-family: var(--font-display); font-weight: 600; }
 
-    section{ scroll-margin-top: 18px; }
+  .footer{ text-align: center; padding: 18px; color: var(--muted-2); font-size: 12px; }
 
-    @media (max-width: 980px){
-      .wrap{ grid-template-columns: 1fr; }
-      .sidebar{ position: static; }
-      .hero .meta{ grid-template-columns: 1fr 1fr; }
-      .profiles{ grid-template-columns: 1fr 1fr; }
-      .uniform{ grid-template-columns: 1fr 1fr; }
-      .grid-3{ grid-template-columns: 1fr; }
-      .two-lang{ grid-template-columns: 1fr; }
-      .req-grid{ grid-template-columns: 1fr; }
-    }
+  section{ scroll-margin-top: 20px; }
 
-    @page { size: A4; margin: 14mm; }
+  @media (max-width: 980px){
+    .wrap{ grid-template-columns: 1fr; }
+    .sidebar{ position: static; }
+    .hero .meta{ grid-template-columns: 1fr 1fr; }
+    .profiles{ grid-template-columns: 1fr 1fr; }
+    .uniform{ grid-template-columns: 1fr 1fr; }
+    .grid-3{ grid-template-columns: 1fr; }
+    .two-lang{ grid-template-columns: 1fr; }
+    .req-grid{ grid-template-columns: 1fr; }
+    .hero-spiral{ display: none; }
+  }
 
-    @media print{
-      body{ background: #ffffff; }
-      .wrap{ display: block; padding: 0; }
-      .sidebar{ display: none; }
-      .hero{ box-shadow: none; border: 1px solid #ddd; }
-      section.card{ box-shadow: none; page-break-inside: avoid; }
-      a{ text-decoration: underline; }
-      .btn{ border: 1px solid #000; background: #fff; color:#000; }
-      .btn.secondary{ border: 1px solid #000; }
-    }
-
-    /* Opción B: stickers (tamaño tipo emoji) */
-    .uniform-sticker{
-      width: 86px;
-      height: 86px;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto 10px;
-      filter: drop-shadow(0 6px 10px rgba(17,24,39,0.10));
-    }
-    @media print{
-      .uniform-sticker{
-        filter: none; /* para PDF más limpio */
-      }
-    }
-  </style>
+  @page { size: A4; margin: 14mm; }
+  @media print{
+    body{ background: #ffffff; color:#111; }
+    body::before, body::after{ display:none; }
+    .wrap{ display: block; padding: 0; }
+    .sidebar{ display: none; }
+    .glass, section.card, .hero{ box-shadow: none; border: 1px solid #ddd; background:#fff; backdrop-filter:none; }
+    a{ text-decoration: underline; color:#111; }
+    .btn{ border: 1px solid #000; background: #fff; color:#000; box-shadow:none; }
+    .btn.secondary{ border: 1px solid #000; }
+    .hero h1, .kpi .num{ -webkit-text-fill-color: #111; color:#111; }
+  }
+</style>
 </head>
 
 <body>
   <div class="wrap">
-    <aside class="sidebar">
+    <aside class="sidebar glass">
       <div class="brand">
-        <img
-          src="logo.png"
-          alt="Maker STEAM Horizonte Cero"
-          style="width:44px;height:44px;border-radius:12px;border:1px solid var(--border);object-fit:contain;background:#fff;padding:6px;"
-        />
+        <img src="logo.png" alt="Maker STEAM Horizonte Cero" />
         <div>
           <h3>Índice / TOC</h3>
           <div class="title">Houston 2027</div>
@@ -400,13 +436,23 @@
       </ul>
 
       <div class="mini">
-        <div><strong>Exportar a PDF:</strong> Chrome/Edge → Imprimir → Guardar como PDF → activar “Gráficos de fondo”.</div>
+        <div><strong>Exportar a PDF:</strong> Chrome/Edge → Imprimir → Guardar como PDF → activar "Gráficos de fondo".</div>
         <div><strong>PDF interactivo:</strong> mantiene índice y links clicables.</div>
       </div>
     </aside>
 
     <main>
-      <header class="hero">
+      <header class="hero glass">
+        <svg class="hero-spiral" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100,100 m0,0 a1,1 0 0 1 1.6,-1 a2.6,2.6 0 0 1 2.6,4.2 a6.8,6.8 0 0 1 -7,5.4 a11,11 0 0 1 -11,-11.8 a17.8,17.8 0 0 1 18.6,-17.6 a28.8,28.8 0 0 1 28.4,29.4 a46.6,46.6 0 0 1 -47,46.2 a75.4,75.4 0 0 1 -75.4,-76.6"
+            fill="none" stroke="url(#spiralGrad)" stroke-width="1.2" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="spiralGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ef1450"/>
+              <stop offset="100%" stop-color="#f2c46d"/>
+            </linearGradient>
+          </defs>
+        </svg>
         <div class="row">
           <span class="badge">Delegación Oficial 2027 · Official Delegation 2027</span>
           <h1>Maker STEAM Horizonte Cero</h1>
@@ -429,12 +475,12 @@
         </div>
       </header>
 
-      <section id="overview" class="card">
+      <section id="overview" class="card glass">
         <h2>Visión / Overview</h2>
         <div class="two-lang">
           <div class="lang">
             <div class="tag">ES</div>
-            <p><strong>“Inspiración que alcanza las estrellas”</strong></p>
+            <p><strong>"Inspiración que alcanza las estrellas"</strong></p>
             <p>
               Maker STEAM Horizonte Cero impulsa una delegación académica para integrar a la comunidad educativa
               hispanohablante a la SEEC en Houston, promoviendo mentoría, vinculación internacional y replicabilidad
@@ -443,16 +489,16 @@
           </div>
           <div class="lang">
             <div class="tag">EN</div>
-            <p><strong>“Inspiration that reaches the stars”</strong></p>
+            <p><strong>"Inspiration that reaches the stars"</strong></p>
             <p>
               Maker STEAM Horizonte Cero leads an academic delegation to connect Spanish-speaking educators with SEEC in
-              Houston—supporting mentorship, international networking, and real implementation back in participants’ home institutions.
+              Houston—supporting mentorship, international networking, and real implementation back in participants' home institutions.
             </p>
           </div>
         </div>
       </section>
 
-      <section id="highlights" class="card">
+      <section id="highlights" class="card glass">
         <h2>Logros SEEC 2026 / SEEC 2026 Highlights</h2>
         <div class="grid-3">
           <div class="kpi">
@@ -474,8 +520,8 @@
             <div class="tag">ES</div>
             <ul>
               <li>Coordinación logística y representación académica de una delegación amplia.</li>
-              <li>Presentación del taller: <strong>“Péndulo Gravitatorio — El Juego de los Dioses en el Cosmos”</strong>.</li>
-              <li>Proyección del proyecto <strong>“La Espiral Dorada”</strong> con reconocimiento internacional.</li>
+              <li>Presentación del taller: <strong>"Péndulo Gravitatorio — El Juego de los Dioses en el Cosmos"</strong>.</li>
+              <li>Proyección del proyecto <strong>"La Espiral Dorada"</strong> con reconocimiento internacional.</li>
             </ul>
             <div class="btns">
               <a class="btn secondary" target="_blank" rel="noopener"
@@ -493,14 +539,14 @@
             <div class="tag">EN</div>
             <ul>
               <li>Proven experience coordinating a large academic delegation.</li>
-              <li>Workshop delivered: <strong>“Gravitational Pendulum — The Gods’ Game in the Cosmos”</strong>.</li>
-              <li>International visibility through <strong>“The Golden Spiral”</strong> project.</li>
+              <li>Workshop delivered: <strong>"Gravitational Pendulum — The Gods' Game in the Cosmos"</strong>.</li>
+              <li>International visibility through <strong>"The Golden Spiral"</strong> project.</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <section id="program" class="card">
+      <section id="program" class="card glass">
         <h2>Programa / Program</h2>
         <div class="two-lang">
           <div class="lang">
@@ -524,7 +570,7 @@
         </div>
       </section>
 
-      <section id="team" class="card">
+      <section id="team" class="card glass">
         <h2>Equipo Directivo / Leadership Team</h2>
         <div class="profiles">
           <div class="profile">
@@ -565,8 +611,8 @@
         </div>
       </section>
 
-      <section id="uniform" class="card">
-        <h2>Uniforme Oficial “Marea Roja” / Official “Red Tide” Uniform</h2>
+      <section id="uniform" class="card glass">
+        <h2>Uniforme Oficial "Marea Roja" / Official "Red Tide" Uniform</h2>
 
         <div class="two-lang">
           <div class="lang">
@@ -579,8 +625,8 @@
           </div>
         </div>
 
-        <div class ="Uniform">
-<div class="u-item">
+        <div class="uniform">
+          <div class="u-item">
             <img class="uniform-sticker" src="uniforme_varsity.png" alt="Chamarra Distintiva" />
             <h4>Chamarra Distintiva</h4>
             <p>Rojo Marea · bordado alta definición / Red Tide · HD embroidery</p>
@@ -588,19 +634,19 @@
 
           <div class="u-item">
             <img class="uniform-sticker" src="uniforme_playera_negra.png" alt="Playera Manga Larga" />
-            <h4>Black t-shirt </h4>
+            <h4>Black t-shirt</h4>
             <p>Negro espacial · ergonómica / Space black · ergonomic</p>
           </div>
 
           <div class="u-item">
             <img class="uniform-sticker" src="uniforme_oxford.png" alt="Camisa Oxford" />
-            <h4>Camisa Oxford 
+            <h4>Camisa Oxford</h4>
             <p>Blanco ártico · formal / Arctic white · formal</p>
           </div>
 
           <div class="u-item">
             <img class="uniform-sticker" src="uniforme_polo.png" alt="Polo oficial" />
-            <h4>Tipo Polo
+            <h4>Tipo Polo</h4>
             <p>Blanco · insignia / White · insignia</p>
           </div>
         </div>
@@ -613,7 +659,7 @@
         </div>
       </section>
 
-      <section id="requirements" class="card">
+      <section id="requirements" class="card glass">
         <h2>Requisitos / Requirements</h2>
         <div class="two-lang">
           <div class="lang">
@@ -636,7 +682,7 @@
         </div>
       </section>
 
-      <section id="registration" class="card">
+      <section id="registration" class="card glass">
         <h2>Registro / Registration</h2>
 
         <div class="two-lang">
@@ -644,7 +690,7 @@
             <div class="tag">ES</div>
             <ol style="margin-left:18px; color:var(--muted);">
               <li>Envía un correo a <strong>makersteamhorizontecero@gmail.com</strong> con asunto:<br />
-                <span style="display:inline-block; margin-top:8px; padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#fff;">
+                <span style="display:inline-block; margin-top:8px; padding:8px 10px; border:1px solid var(--glass-border); border-radius:10px; background:rgba(255,255,255,0.04);">
                   REGISTRO DE INTERÉS DELEGACIÓN HOUSTON 2027 — [Tu Nombre]
                 </span>
               </li>
@@ -658,7 +704,7 @@
             <div class="tag">EN</div>
             <ol style="margin-left:18px; color:var(--muted);">
               <li>Email <strong>makersteamhorizontecero@gmail.com</strong> with subject:<br />
-                <span style="display:inline-block; margin-top:8px; padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#fff;">
+                <span style="display:inline-block; margin-top:8px; padding:8px 10px; border:1px solid var(--glass-border); border-radius:10px; background:rgba(255,255,255,0.04);">
                   HOUSTON 2027 DELEGATION — EXPRESSION OF INTEREST — [Your Name]
                 </span>
               </li>
@@ -680,7 +726,7 @@
         </div>
       </section>
 
-      <section id="contact" class="card">
+      <section id="contact" class="card glass">
         <h2>Contacto / Contact</h2>
         <div class="two-lang">
           <div class="lang">
@@ -721,4 +767,3 @@
   </div>
 </body>
 </html>
-```
