@@ -1,2 +1,1264 @@
-[README.md](https://github.com/user-attachments/files/29687470/README.md)
-# MSHC
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maker STEAM Horizonte Cero — Houston 2027 | Digital Platform (Bilingual)</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0: #05070d;
+    --bg-1: #0a0e1a;
+    --bg-2: #0f1526;
+    --glass: rgba(255,255,255,0.045);
+    --glass-strong: rgba(255,255,255,0.075);
+    --glass-border: rgba(255,255,255,0.10);
+    --glass-hi: rgba(255,255,255,0.18);
+    --text: #eef2f8;
+    --muted: #93a1ba;
+    --muted-2: #64738f;
+    --accent: #ef1450;
+    --accent-soft: rgba(239,20,80,0.16);
+    --cyan: #22d3ee;
+    --cyan-soft: rgba(34,211,238,0.14);
+    --gold: #f2c46d;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *{ box-sizing: border-box; margin: 0; padding: 0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    font-family: var(--font-body);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+    background: var(--bg-0);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ---------- Fondo: campo estelar + nebulosas ---------- */
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+      radial-gradient(1px 1px at 8% 12%, rgba(255,255,255,0.55), transparent),
+      radial-gradient(1px 1px at 22% 68%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1.5px 1.5px at 38% 24%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 54% 82%, rgba(255,255,255,0.35), transparent),
+      radial-gradient(1.5px 1.5px at 68% 14%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 78% 58%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 91% 32%, rgba(255,255,255,0.45), transparent),
+      radial-gradient(1.5px 1.5px at 12% 90%, rgba(255,255,255,0.35), transparent),
+      radial-gradient(1px 1px at 46% 46%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 85% 78%, rgba(255,255,255,0.4), transparent);
+    background-repeat: repeat;
+    background-size: 100% 100%;
+  }
+  body::after{
+    content:"";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(700px circle at 82% -8%, rgba(239,20,80,0.16), transparent 60%),
+      radial-gradient(800px circle at -10% 30%, rgba(34,211,238,0.10), transparent 55%),
+      linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
+  }
+
+  a{ color: var(--cyan); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 22px 60px;
+    display: grid;
+    grid-template-columns: 288px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* ---------- Glass base ---------- */
+  .glass{
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    backdrop-filter: blur(22px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .glass::before{
+    content:"";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(160deg, var(--glass-hi), transparent 40%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    position: sticky;
+    top: 20px;
+    padding: 20px;
+  }
+  .sidebar .brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .brand .logo-wrap{
+    position: relative;
+    width: 52px; height: 52px; flex-shrink: 0;
+    border-radius: 14px; overflow: hidden;
+    background: radial-gradient(circle at 35% 30%, rgba(34,211,238,0.18), rgba(5,7,13,0.9));
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 4px 16px rgba(0,0,0,0.4);
+    transition: 0.3s ease;
+  }
+  .brand .logo-wrap::after{
+    content:"";
+    position: absolute; inset: 0;
+    border-radius: 14px;
+    box-shadow: inset 0 0 14px rgba(34,211,238,0.0);
+    transition: 0.3s ease;
+  }
+  .brand:hover .logo-wrap{ transform: rotate(-4deg) scale(1.06); border-color: rgba(34,211,238,0.45); }
+  .brand:hover .logo-wrap::after{ box-shadow: inset 0 0 16px rgba(34,211,238,0.35); }
+  .brand img{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .brand h3{
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .brand .title{
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .toc{ list-style: none; display: grid; gap: 6px; }
+  .toc a{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    border: 1px solid transparent;
+    transition: 0.2s ease;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .toc a::before{
+    content: "";
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--muted-2);
+    transition: 0.2s ease;
+    flex-shrink: 0;
+  }
+  .toc a:hover{
+    background: var(--accent-soft);
+    color: #ffd7e2;
+    border-color: rgba(239,20,80,0.3);
+    text-decoration: none;
+  }
+  .toc a:hover::before{ background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+  .sidebar .mini{
+    margin-top: 16px;
+    font-size: 11.5px;
+    color: var(--muted-2);
+    border-top: 1px solid var(--glass-border);
+    padding-top: 16px;
+    display: grid;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .sidebar .mini strong{ color: var(--muted); }
+
+  main{ display: grid; gap: 18px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 34px 30px;
+    overflow: hidden;
+  }
+  .hero-spiral{
+    position: absolute;
+    top: 50%; right: -6%;
+    width: 480px; height: 480px;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .hero-spiral{ animation: spin 120s linear infinite; }
+  }
+  @keyframes spin{ to{ transform: translateY(-50%) rotate(360deg); } }
+
+  .hero .row{ position: relative; display: grid; gap: 12px; max-width: 640px; }
+
+  .badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    background: var(--accent-soft);
+    border: 1px solid rgba(239,20,80,0.35);
+    color: #ffb8c9;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .badge::before{
+    content:"";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .hero h1{
+    font-family: var(--font-display);
+    font-size: 34px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin-top: 4px;
+    background: linear-gradient(135deg, #ffffff 0%, #c9d4e8 60%, #94a3ba 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero .sub{ color: var(--muted); font-size: 14.5px; }
+
+  .hero .meta{
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(130px,1fr));
+    gap: 10px;
+  }
+  .meta .pill{
+    background: rgba(255,255,255,0.035);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 11px 13px;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .pill strong{
+    display: block; font-family: var(--font-display);
+    color: var(--text); font-size: 13px; margin-bottom: 3px; font-weight: 600;
+  }
+
+  section.card{ padding: 24px; }
+  section.card h2{
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  section.card h2::before{
+    content:"";
+    width: 4px; height: 18px;
+    background: linear-gradient(180deg, var(--accent), var(--cyan));
+    border-radius: 3px;
+  }
+
+  .grid-3{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+  .kpi{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 16px; text-align: center;
+    transition: 0.2s ease;
+  }
+  .kpi:hover{ border-color: rgba(239,20,80,0.35); transform: translateY(-2px); }
+  .kpi{ perspective: 600px; }
+
+  /* ---------- Logo watermark en hero ---------- */
+  .hero-logo{
+    position: absolute;
+    top: 18px; right: 22px;
+    width: 92px; height: 92px;
+    object-fit: cover;
+    border-radius: 20px;
+    opacity: 0.9;
+    border: 1px solid rgba(34,211,238,0.25);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 8px 30px rgba(0,0,0,0.5), 0 0 40px rgba(34,211,238,0.12);
+    animation: floaty 6s ease-in-out infinite;
+  }
+  @keyframes floaty{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-7px); } }
+  @media (max-width: 640px){ .hero-logo{ width: 60px; height: 60px; top: 14px; right: 14px; } }
+
+  /* ---------- Barra de progreso de scroll ---------- */
+  .scroll-progress{
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--cyan));
+    box-shadow: 0 0 10px rgba(34,211,238,0.6);
+    z-index: 100;
+    transition: width 0.08s linear;
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{ opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+  .reveal-stagger.in > *{ animation: staggerIn 0.6s ease both; }
+  .reveal-stagger.in > *:nth-child(1){ animation-delay: 0.05s; }
+  .reveal-stagger.in > *:nth-child(2){ animation-delay: 0.12s; }
+  .reveal-stagger.in > *:nth-child(3){ animation-delay: 0.19s; }
+  .reveal-stagger.in > *:nth-child(4){ animation-delay: 0.26s; }
+  .reveal-stagger.in > *:nth-child(5){ animation-delay: 0.33s; }
+  .reveal-stagger.in > *:nth-child(6){ animation-delay: 0.4s; }
+  @keyframes staggerIn{ from{ opacity: 0; transform: translateY(16px); } to{ opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .reveal.in{ opacity: 1 !important; transform: none !important; transition: none !important; }
+    .reveal-stagger.in > *{ animation: none !important; }
+    .hero-logo{ animation: none; }
+  }
+
+  /* ---------- Tilt interactivo en tarjetas ---------- */
+  .tilt{ transition: transform 0.15s ease, box-shadow 0.15s ease; will-change: transform; }
+
+  /* ---------- TOC activo ---------- */
+  .toc a.active{
+    background: var(--cyan-soft);
+    color: #baf3ff;
+    border-color: rgba(34,211,238,0.4);
+  }
+  .toc a.active::before{ background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+  /* ---------- Estrellas con parpadeo ---------- */
+  .twinkle{
+    position: fixed; z-index: -2; border-radius: 50%;
+    background: #fff; pointer-events: none;
+    animation: twinkle linear infinite;
+  }
+  @keyframes twinkle{ 0%,100%{ opacity: 0.15; } 50%{ opacity: 1; } }
+
+  @media print{ .hero-logo, .scroll-progress{ display: none !important; } }
+  .kpi .num{
+    font-family: var(--font-display);
+    font-size: 24px; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--gold));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .kpi .lbl{ font-size: 11px; font-weight: 700; color: var(--muted-2); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
+
+  .two-lang{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+  .lang{
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+  }
+  .lang .tag{
+    font-family: var(--font-display);
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 8px;
+  }
+  .lang p{ color: var(--muted); margin-bottom: 10px; }
+  .lang ul{ margin-left: 18px; color: var(--muted); }
+  .lang li{ margin-bottom: 7px; }
+  .lang strong{ color: var(--text); }
+
+  .btns{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .btn{
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 16px; border-radius: 12px;
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, var(--accent), #b0103d);
+    color: #fff; font-weight: 700; font-size: 13px;
+    text-decoration: none; transition: 0.2s ease;
+    box-shadow: 0 4px 18px rgba(239,20,80,0.28);
+  }
+  .btn:hover{ transform: translateY(-2px); text-decoration: none; box-shadow: 0 8px 24px rgba(239,20,80,0.4); }
+  .btn.secondary{
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    border-color: var(--glass-border);
+    box-shadow: none;
+  }
+  .btn.secondary:hover{
+    border-color: rgba(34,211,238,0.4);
+    color: var(--cyan);
+    background: var(--cyan-soft);
+    box-shadow: 0 6px 20px rgba(34,211,238,0.15);
+  }
+
+  .profiles{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 10px; }
+  .profile{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    transition: 0.2s ease;
+  }
+  .profile:hover{ border-color: rgba(34,211,238,0.3); transform: translateY(-2px); }
+  .profile .name{ font-family: var(--font-display); font-weight: 600; font-size: 13.5px; margin-bottom: 4px; }
+  .profile .role{
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gold); margin-bottom: 12px;
+  }
+  .profile .contact{ font-size: 12px; color: var(--muted); display: grid; gap: 6px; word-break: break-word; }
+
+  .uniform{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-top: 10px; }
+  .u-item{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 16px; text-align: center;
+    transition: 0.2s ease;
+  }
+  .u-item:hover{ border-color: rgba(239,20,80,0.3); transform: translateY(-2px); }
+  .u-item h4{ font-family: var(--font-display); font-size: 13px; font-weight: 600; margin-bottom: 6px; text-align: left; }
+  .u-item p{ font-size: 11.5px; color: var(--muted); text-align: left; }
+  .uniform-sticker{
+    width: 92px; height: 92px; object-fit: contain; display: block; margin: 0 auto 12px;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+    background: rgba(255,255,255,0.92);
+    border-radius: 14px; padding: 8px;
+  }
+
+  .req-grid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 10px; }
+  .req{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 13px; font-size: 12px; color: var(--muted);
+  }
+  .req strong{ color: var(--text); display:block; margin-bottom: 4px; font-family: var(--font-display); font-weight: 600; }
+
+  .footer{ text-align: center; padding: 18px; color: var(--muted-2); font-size: 12px; }
+
+  section{ scroll-margin-top: 20px; }
+
+  /* ---------- Asistente IA (chat widget) ---------- */
+  .ai-toggle{
+    position: fixed;
+    right: 22px; bottom: 22px;
+    z-index: 60;
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    border: 1px solid rgba(34,211,238,0.4);
+    background: linear-gradient(135deg, var(--accent), var(--cyan));
+    box-shadow: 0 8px 28px rgba(239,20,80,0.35), 0 0 0 6px rgba(34,211,238,0.08);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: 0.25s ease;
+  }
+  .ai-toggle:hover{ transform: translateY(-3px) scale(1.04); }
+  .ai-toggle svg{ width: 26px; height: 26px; fill: #fff; }
+  .ai-toggle .ping{
+    position: absolute; inset: -4px; border-radius: 50%;
+    border: 1px solid rgba(34,211,238,0.5);
+    animation: ping 2.4s ease-out infinite;
+  }
+  @keyframes ping{ 0%{ transform: scale(0.9); opacity: 0.8; } 100%{ transform: scale(1.35); opacity: 0; } }
+
+  .ai-panel{
+    position: fixed;
+    right: 22px; bottom: 92px;
+    z-index: 60;
+    width: 360px; max-width: calc(100vw - 44px);
+    height: 480px; max-height: calc(100vh - 140px);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    background: rgba(10,14,26,0.82);
+    -webkit-backdrop-filter: blur(26px) saturate(160%);
+    backdrop-filter: blur(26px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+  }
+  .ai-panel.open{ display: flex; }
+
+  .ai-head{
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.03);
+  }
+  .ai-head .dot{ width: 9px; height: 9px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+  .ai-head strong{ font-family: var(--font-display); font-size: 13.5px; }
+  .ai-head span{ font-size: 10.5px; color: var(--muted-2); display: block; }
+  .ai-close{
+    margin-left: auto; cursor: pointer; color: var(--muted);
+    width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+    border-radius: 8px; transition: 0.2s ease;
+  }
+  .ai-close:hover{ background: rgba(255,255,255,0.08); color: var(--text); }
+
+  .ai-body{
+    flex: 1; overflow-y: auto; padding: 14px 14px 6px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .ai-msg{ max-width: 88%; font-size: 12.8px; line-height: 1.55; padding: 10px 13px; border-radius: 13px; }
+  .ai-msg.bot{
+    align-self: flex-start;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    border-bottom-left-radius: 4px;
+  }
+  .ai-msg.user{
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--accent), #b0103d);
+    color: #fff; font-weight: 600;
+    border-bottom-right-radius: 4px;
+  }
+  .ai-msg a{ color: var(--cyan); }
+  .ai-msg.bot .chips{ display:flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .ai-chip{
+    font-size: 11px; font-weight: 700; cursor: pointer;
+    padding: 6px 10px; border-radius: 999px;
+    background: var(--cyan-soft); color: var(--cyan);
+    border: 1px solid rgba(34,211,238,0.3);
+    transition: 0.2s ease;
+  }
+  .ai-chip:hover{ background: rgba(34,211,238,0.22); }
+
+  .ai-suggest{
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 0 14px 10px;
+  }
+
+  .ai-inputrow{
+    display: flex; gap: 8px;
+    padding: 12px;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.02);
+  }
+  .ai-inputrow input{
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-size: 12.5px;
+    font-family: var(--font-body);
+  }
+  .ai-inputrow input::placeholder{ color: var(--muted-2); }
+  .ai-inputrow input:focus{ outline: none; border-color: rgba(34,211,238,0.5); }
+  .ai-send{
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--cyan));
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ai-send svg{ width: 16px; height: 16px; fill: #fff; }
+
+  @media (max-width: 480px){
+    .ai-panel{ right: 12px; left: 12px; width: auto; bottom: 84px; }
+    .ai-toggle{ right: 16px; bottom: 16px; }
+  }
+
+  @media print{
+    .ai-toggle, .ai-panel{ display: none !important; }
+  }
+
+  @media (max-width: 980px){
+    .wrap{ grid-template-columns: 1fr; }
+    .sidebar{ position: static; }
+    .hero .meta{ grid-template-columns: 1fr 1fr; }
+    .profiles{ grid-template-columns: 1fr 1fr; }
+    .uniform{ grid-template-columns: 1fr 1fr; }
+    .grid-3{ grid-template-columns: 1fr; }
+    .two-lang{ grid-template-columns: 1fr; }
+    .req-grid{ grid-template-columns: 1fr; }
+    .hero-spiral{ display: none; }
+  }
+
+  @page { size: A4; margin: 14mm; }
+  @media print{
+    body{ background: #ffffff; color:#111; }
+    body::before, body::after{ display:none; }
+    .wrap{ display: block; padding: 0; }
+    .sidebar{ display: none; }
+    .glass, section.card, .hero{ box-shadow: none; border: 1px solid #ddd; background:#fff; backdrop-filter:none; }
+    a{ text-decoration: underline; color:#111; }
+    .btn{ border: 1px solid #000; background: #fff; color:#000; box-shadow:none; }
+    .btn.secondary{ border: 1px solid #000; }
+    .hero h1, .kpi .num{ -webkit-text-fill-color: #111; color:#111; }
+  }
+</style>
+</head>
+
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="wrap">
+    <aside class="sidebar glass">
+      <div class="brand">
+        <div class="logo-wrap"><img src="logo.png" alt="Maker STEAM Horizonte Cero" /></div>
+        <div>
+          <h3>Índice / TOC</h3>
+          <div class="title">Houston 2027</div>
+        </div>
+      </div>
+
+      <ul class="toc">
+        <li><a href="#overview">Visión / Overview</a></li>
+        <li><a href="#highlights">Logros 2026 / 2026 Highlights</a></li>
+        <li><a href="#program">Programa / Program</a></li>
+        <li><a href="#team">Equipo / Team</a></li>
+        <li><a href="#uniform">Uniforme / Uniform</a></li>
+        <li><a href="#requirements">Requisitos / Requirements</a></li>
+        <li><a href="#registration">Registro / Registration</a></li>
+        <li><a href="#contact">Contacto / Contact</a></li>
+      </ul>
+
+      <div class="mini">
+        <div><strong>Exportar a PDF:</strong> Chrome/Edge → Imprimir → Guardar como PDF → activar "Gráficos de fondo".</div>
+        <div><strong>PDF interactivo:</strong> mantiene índice y links clicables.</div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="hero glass">
+        <svg class="hero-spiral" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100,100 m0,0 a1,1 0 0 1 1.6,-1 a2.6,2.6 0 0 1 2.6,4.2 a6.8,6.8 0 0 1 -7,5.4 a11,11 0 0 1 -11,-11.8 a17.8,17.8 0 0 1 18.6,-17.6 a28.8,28.8 0 0 1 28.4,29.4 a46.6,46.6 0 0 1 -47,46.2 a75.4,75.4 0 0 1 -75.4,-76.6"
+            fill="none" stroke="url(#spiralGrad)" stroke-width="1.2" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="spiralGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ef1450"/>
+              <stop offset="100%" stop-color="#f2c46d"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <img class="hero-logo" src="logo.png" alt="" aria-hidden="true" />
+        <div class="row">
+          <span class="badge">Delegación Oficial 2027 · Official Delegation 2027</span>
+          <h1>Maker STEAM Horizonte Cero</h1>
+          <div class="sub">
+            Programa de Acompañamiento Académico — Houston 2027<br />
+            Academic Accompaniment Program — Houston 2027
+          </div>
+
+          <div class="meta">
+            <div class="pill"><strong>Evento / Event</strong>SEEC — Space Exploration Educators Conference</div>
+            <div class="pill"><strong>Fecha / Date</strong>Febrero 2027 / February 2027</div>
+            <div class="pill"><strong>Sede / Venue</strong>Space Center Houston (NASA)</div>
+            <div class="pill"><strong>Modalidad / Format</strong>Presencial · Bilingüe / On-site · Bilingual</div>
+          </div>
+
+          <div class="btns">
+            <a class="btn" href="https://makersteam.space/horizonte-cero" target="_blank" rel="noopener">Sitio oficial / Official site</a>
+            <a class="btn secondary" href="https://makersteam.space/pendulum" target="_blank" rel="noopener">Taller Péndulo / Pendulum Workshop</a>
+          </div>
+        </div>
+      </header>
+
+      <section id="overview" class="card glass reveal tilt">
+        <h2>Visión / Overview</h2>
+        <div class="two-lang">
+          <div class="lang">
+            <div class="tag">ES</div>
+            <p><strong>"Inspiración que alcanza las estrellas"</strong></p>
+            <p>
+              Maker STEAM Horizonte Cero impulsa una delegación académica para integrar a la comunidad educativa
+              hispanohablante a la SEEC en Houston, promoviendo mentoría, vinculación internacional y replicabilidad
+              en las instituciones de origen.
+            </p>
+          </div>
+          <div class="lang">
+            <div class="tag">EN</div>
+            <p><strong>"Inspiration that reaches the stars"</strong></p>
+            <p>
+              Maker STEAM Horizonte Cero leads an academic delegation to connect Spanish-speaking educators with SEEC in
+              Houston—supporting mentorship, international networking, and real implementation back in participants' home institutions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="highlights" class="card glass reveal tilt">
+        <h2>Logros SEEC 2026 / SEEC 2026 Highlights</h2>
+        <div class="grid-3">
+          <div class="kpi">
+            <div class="num" data-count="80" data-prefix="+">0</div>
+            <div class="lbl">Docentes / Educators</div>
+          </div>
+          <div class="kpi">
+            <div class="num" data-count="50" data-suffix="+">0</div>
+            <div class="lbl">Países / Countries</div>
+          </div>
+          <div class="kpi">
+            <div class="num">🏅</div>
+            <div class="lbl">Impacto / Impact</div>
+          </div>
+        </div>
+
+        <div class="two-lang" style="margin-top:14px;">
+          <div class="lang">
+            <div class="tag">ES</div>
+            <ul>
+              <li>Coordinación logística y representación académica de una delegación amplia.</li>
+              <li>Presentación del taller: <strong>"Péndulo Gravitatorio — El Juego de los Dioses en el Cosmos"</strong>.</li>
+              <li>Proyección del proyecto <strong>"La Espiral Dorada"</strong> con reconocimiento internacional.</li>
+            </ul>
+            <div class="btns">
+              <a class="btn secondary" target="_blank" rel="noopener"
+                href="https://sites.grenadine.co/sites/spacecenter/en/space-exploration-educators-conference/schedule/10944/P%C3%89NDULO%20GRAVITATORIO%3A%20EL%20JUEGO%20DE%20LOS%20DIOSES%20EN%20EL%20COSMOS%20%28Spanish%20session%29?platform=">
+                Registro SEEC 2026 / SEEC Listing
+              </a>
+              <a class="btn secondary" target="_blank" rel="noopener"
+                href="https://oem.com.mx/elsoldehidalgo/local/tula-estudiantes-ganan-medalla-de-oro-en-tailandia-28406762">
+                Nota de prensa / Press
+              </a>
+            </div>
+          </div>
+
+          <div class="lang">
+            <div class="tag">EN</div>
+            <ul>
+              <li>Proven experience coordinating a large academic delegation.</li>
+              <li>Workshop delivered: <strong>"Gravitational Pendulum — The Gods' Game in the Cosmos"</strong>.</li>
+              <li>International visibility through <strong>"The Golden Spiral"</strong> project.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="program" class="card glass reveal tilt">
+        <h2>Programa / Program</h2>
+        <div class="two-lang">
+          <div class="lang">
+            <div class="tag">ES</div>
+            <ul>
+              <li><strong>Mentoría académica:</strong> preparación en metodologías STEAM innovadoras.</li>
+              <li><strong>Soporte logístico:</strong> guía para transporte, hospedaje y traslados.</li>
+              <li><strong>Vinculación internacional:</strong> networking con educadores y profesionales.</li>
+              <li><strong>Réplica institucional:</strong> implementación de un proyecto/taller a su regreso.</li>
+            </ul>
+          </div>
+          <div class="lang">
+            <div class="tag">EN</div>
+            <ul>
+              <li><strong>Academic mentorship:</strong> preparation in innovative STEAM methodologies.</li>
+              <li><strong>Logistical support:</strong> guidance for travel, lodging, and transfers.</li>
+              <li><strong>International networking:</strong> connections with educators and professionals.</li>
+              <li><strong>Institutional replication:</strong> implement a project/workshop after returning.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="team" class="card glass reveal tilt">
+        <h2>Equipo Directivo / Leadership Team</h2>
+        <div class="profiles">
+          <div class="profile">
+            <div class="name">Dra. Erika Corina Sánchez Pastrana</div>
+            <div class="role">Dirección Académica / Academic Director</div>
+            <div class="contact">
+              <div>Email: <a href="mailto:erika.sanchez@anglocastellano.edu.mx">erika.sanchez@anglocastellano.edu.mx</a></div>
+              <div>WhatsApp: <a target="_blank" rel="noopener" href="https://wa.me/5217731286570?text=Hola%2C%20me%20interesa%20la%20Delegaci%C3%B3n%20Houston%202027">+52 773 128 6570</a></div>
+            </div>
+          </div>
+
+          <div class="profile">
+            <div class="name">Lic. Erick Arturo Sánchez Reus</div>
+            <div class="role">Gestión Administrativa / Administration</div>
+            <div class="contact">
+              <div>Email: <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a></div>
+              <div>WhatsApp: <a target="_blank" rel="noopener" href="https://wa.me/5218147062703?text=Hola%2C%20solicito%20informaci%C3%B3n%20para%20registro%20en%20la%20Delegaci%C3%B3n%20Houston%202027">+52 814 706 2703</a></div>
+            </div>
+          </div>
+
+          <div class="profile">
+            <div class="name">Dra. Karla Lorena Montoya Cisneros</div>
+            <div class="role">Coordinación SEEC 27 / SEEC 27 Coordination</div>
+            <div class="contact">
+              <div>Email: <a href="mailto:vikamomo14@gmail.com">vikamomo14@gmail.com</a></div>
+              <div>WhatsApp: <a target="_blank" rel="noopener" href="https://wa.me/5218443519611?text=Hola%2C%20solicito%20informaci%C3%B3n%20sobre%20capacitaci%C3%B3n%20SEEC%202027">+52 844 351 9611</a></div>
+            </div>
+          </div>
+
+          <div class="profile">
+            <div class="name">Lic. Claudia Elizabeth Rivera Jacinto</div>
+            <div class="role">Imagen y Uniformes / Branding & Uniforms</div>
+            <div class="contact">
+              <div>Email: <a href="mailto:claudiaeriveraj@gmail.com">claudiaeriveraj@gmail.com</a></div>
+              <div>WhatsApp: <a target="_blank" rel="noopener" href="https://wa.me/5215529058989?text=Hola%2C%20solicito%20informaci%C3%B3n%20sobre%20uniformes%20oficiales">+52 552 905 8989</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="uniform" class="card glass reveal tilt">
+        <h2>Uniforme Oficial "Marea Roja" / Official "Red Tide" Uniform</h2>
+
+        <div class="two-lang">
+          <div class="lang">
+            <div class="tag">ES</div>
+            <p>Distintivo de unidad y profesionalismo. Diseño exclusivo con identidad institucional.</p>
+          </div>
+          <div class="lang">
+            <div class="tag">EN</div>
+            <p>A symbol of unity and professionalism. Exclusive design aligned with institutional identity.</p>
+          </div>
+        </div>
+
+        <div class="uniform">
+          <div class="u-item">
+            <img class="uniform-sticker" src="uniforme_varsity.png" alt="Chamarra Distintiva" />
+            <h4>Chamarra Distintiva</h4>
+            <p>Rojo Marea · bordado alta definición / Red Tide · HD embroidery</p>
+          </div>
+
+          <div class="u-item">
+            <img class="uniform-sticker" src="uniforme_playera_negra.png" alt="Playera Manga Larga" />
+            <h4>Black t-shirt</h4>
+            <p>Negro espacial · ergonómica / Space black · ergonomic</p>
+          </div>
+
+          <div class="u-item">
+            <img class="uniform-sticker" src="uniforme_oxford.png" alt="Camisa Oxford" />
+            <h4>Camisa Oxford</h4>
+            <p>Blanco ártico · formal / Arctic white · formal</p>
+          </div>
+
+          <div class="u-item">
+            <img class="uniform-sticker" src="uniforme_polo.png" alt="Polo oficial" />
+            <h4>Tipo Polo</h4>
+            <p>Blanco · insignia / White · insignia</p>
+          </div>
+        </div>
+
+        <div class="btns">
+          <a class="btn secondary" target="_blank" rel="noopener"
+             href="https://wa.me/5215529058989?text=Hola%2C%20solicito%20informaci%C3%B3n%20sobre%20uniformes%20oficiales%20(Marea%20Roja)%20para%20Houston%202027">
+            Solicitar / Request via WhatsApp
+          </a>
+        </div>
+      </section>
+
+      <section id="requirements" class="card glass reveal tilt">
+        <h2>Requisitos / Requirements</h2>
+        <div class="two-lang">
+          <div class="lang">
+            <div class="tag">ES</div>
+            <p><strong>Documentación mínima recomendada</strong> para participación (sujeta a validación):</p>
+          </div>
+          <div class="lang">
+            <div class="tag">EN</div>
+            <p><strong>Recommended minimum documentation</strong> for participation (subject to validation):</p>
+          </div>
+        </div>
+
+        <div class="req-grid">
+          <div class="req"><strong>Pasaporte / Passport</strong>Vigencia mínima 6 meses post-evento.</div>
+          <div class="req"><strong>Visa B1/B2</strong>Vigente o en proceso (según caso).</div>
+          <div class="req"><strong>Identificación / ID</strong>INE o cédula profesional / national ID.</div>
+          <div class="req"><strong>Constancia / Proof</strong>Acreditación de función educativa.</div>
+          <div class="req"><strong>Carta / Letter</strong>Carta de intención (motivación).</div>
+          <div class="req"><strong>Compromiso / Commitment</strong>Réplica institucional e informe final.</div>
+        </div>
+      </section>
+
+      <section id="registration" class="card glass reveal tilt">
+        <h2>Registro / Registration</h2>
+
+        <div class="two-lang">
+          <div class="lang">
+            <div class="tag">ES</div>
+            <ol style="margin-left:18px; color:var(--muted);">
+              <li>Envía un correo a <strong>makersteamhorizontecero@gmail.com</strong> con asunto:<br />
+                <span style="display:inline-block; margin-top:8px; padding:8px 10px; border:1px solid var(--glass-border); border-radius:10px; background:rgba(255,255,255,0.04);">
+                  REGISTRO DE INTERÉS DELEGACIÓN HOUSTON 2027 — [Tu Nombre]
+                </span>
+              </li>
+              <li style="margin-top:10px;">Adjunta tu documentación requerida.</li>
+              <li>Validación por el equipo y confirmación.</li>
+              <li>Integración al canal oficial de comunicación.</li>
+            </ol>
+          </div>
+
+          <div class="lang">
+            <div class="tag">EN</div>
+            <ol style="margin-left:18px; color:var(--muted);">
+              <li>Email <strong>makersteamhorizontecero@gmail.com</strong> with subject:<br />
+                <span style="display:inline-block; margin-top:8px; padding:8px 10px; border:1px solid var(--glass-border); border-radius:10px; background:rgba(255,255,255,0.04);">
+                  HOUSTON 2027 DELEGATION — EXPRESSION OF INTEREST — [Your Name]
+                </span>
+              </li>
+              <li style="margin-top:10px;">Attach the required documentation.</li>
+              <li>Team validation and confirmation.</li>
+              <li>Join the official communication channel.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="btns">
+          <a class="btn" href="mailto:makersteamhorizontecero@gmail.com?subject=REGISTRO%20DE%20INTER%C3%89S%20DELEGACI%C3%93N%20HOUSTON%202027%20%E2%80%94%20%5BTu%20Nombre%5D&body=Hola%2C%0A%0AMe%20interesa%20registrarme%20en%20la%20Delegaci%C3%B3n%20Houston%202027.%0A%0ANombre%20completo%3A%0AInstituci%C3%B3n%3A%0ACargo%3A%0ACiudad%2FEstado%3A%0ATel%C3%A9fono%3A%0A%0AAdjunto%20mi%20documentaci%C3%B3n.%0A%0AGracias">
+            Email de registro / Registration email
+          </a>
+          <a class="btn secondary" target="_blank" rel="noopener"
+             href="https://wa.me/5218147062703?text=Hola%2C%20solicito%20informaci%C3%B3n%20para%20registro%20en%20la%20Delegaci%C3%B3n%20Houston%202027">
+            WhatsApp (Administración)
+          </a>
+        </div>
+      </section>
+
+      <section id="contact" class="card glass reveal tilt">
+        <h2>Contacto / Contact</h2>
+        <div class="two-lang">
+          <div class="lang">
+            <div class="tag">ES</div>
+            <ul>
+              <li>Web: <a target="_blank" rel="noopener" href="https://www.makersteam.space/">www.makersteam.space</a></li>
+              <li>Email: <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a></li>
+              <li>Redes: @makersteamhorizontecero</li>
+            </ul>
+          </div>
+          <div class="lang">
+            <div class="tag">EN</div>
+            <ul>
+              <li>Website: <a target="_blank" rel="noopener" href="https://www.makersteam.space/">www.makersteam.space</a></li>
+              <li>Email: <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a></li>
+              <li>Social: @makersteamhorizontecero</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="btns">
+          <a class="btn secondary" target="_blank" rel="noopener"
+             href="https://wa.me/5217731286570?text=Hola%2C%20me%20interesa%20la%20Delegaci%C3%B3n%20Houston%202027">
+            WhatsApp (Académica)
+          </a>
+          <a class="btn secondary" target="_blank" rel="noopener"
+             href="https://wa.me/5218443519611?text=Hola%2C%20solicito%20informaci%C3%B3n%20sobre%20capacitaci%C3%B3n%20SEEC%202027">
+            WhatsApp (Capacitación)
+          </a>
+        </div>
+      </section>
+
+      <div class="footer">
+        <div><strong>Maker STEAM Horizonte Cero</strong> · Marca registrada IMPI · Clase 41</div>
+        <div>Diseñado para lectura web y exportación a PDF A4 con enlaces clicables.</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ---------- Asistente IA (sin backend) ---------- -->
+  <button class="ai-toggle" id="aiToggle" aria-label="Abrir asistente">
+    <span class="ping"></span>
+    <svg viewBox="0 0 24 24"><path d="M12 2a1 1 0 0 1 1 1v1.06A8.004 8.004 0 0 1 20 12v1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 8 8 0 0 1-16 0 2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2v-1a8.004 8.004 0 0 1 7-7.94V3a1 1 0 0 1 1-1Zm-3 9a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
+  </button>
+
+  <div class="ai-panel" id="aiPanel">
+    <div class="ai-head">
+      <span class="dot"></span>
+      <div>
+        <strong>Asistente Horizonte Cero</strong>
+        <span>Respuestas al instante · ES / EN</span>
+      </div>
+      <div class="ai-close" id="aiClose">✕</div>
+    </div>
+    <div class="ai-body" id="aiBody"></div>
+    <div class="ai-suggest" id="aiSuggest"></div>
+    <div class="ai-inputrow">
+      <input id="aiInput" type="text" placeholder="Escribe tu pregunta / Type your question..." />
+      <button class="ai-send" id="aiSend" aria-label="Enviar">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---------- Barra de progreso de scroll ----------
+    var progressBar = document.getElementById('scrollProgress');
+    function updateProgress(){
+      var h = document.documentElement;
+      var scrolled = (h.scrollTop || document.body.scrollTop);
+      var height = h.scrollHeight - h.clientHeight;
+      progressBar.style.width = height > 0 ? (scrolled / height * 100) + '%' : '0%';
+    }
+    document.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    // ---------- Estrellas con parpadeo (ligero, decorativo) ----------
+    if(!reduceMotion){
+      var starLayer = document.createDocumentFragment();
+      var count = window.innerWidth < 640 ? 18 : 32;
+      for(var i=0;i<count;i++){
+        var s = document.createElement('div');
+        s.className = 'twinkle';
+        var size = (Math.random() * 1.6 + 0.6).toFixed(1);
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        s.style.left = (Math.random()*100) + 'vw';
+        s.style.top = (Math.random()*100) + 'vh';
+        s.style.animationDuration = (2 + Math.random()*3.5).toFixed(1) + 's';
+        s.style.animationDelay = (Math.random()*3).toFixed(1) + 's';
+        starLayer.appendChild(s);
+      }
+      document.body.appendChild(starLayer);
+    }
+
+    // ---------- Scroll reveal ----------
+    var revealEls = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window && !reduceMotion){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      revealEls.forEach(function(el){ io.observe(el); });
+    } else {
+      revealEls.forEach(function(el){ el.classList.add('in'); });
+    }
+
+    // ---------- Contadores animados (KPIs) ----------
+    var counters = document.querySelectorAll('[data-count]');
+    function animateCount(el){
+      var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+      var prefix = el.getAttribute('data-prefix') || '';
+      var suffix = el.getAttribute('data-suffix') || '';
+      if(reduceMotion){ el.textContent = prefix + target + suffix; return; }
+      var start = 0, duration = 1100, startTime = null;
+      function step(ts){
+        if(!startTime) startTime = ts;
+        var progress = Math.min((ts - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = prefix + Math.round(eased * target) + suffix;
+        if(progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    if('IntersectionObserver' in window){
+      var ioCount = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){ animateCount(entry.target); ioCount.unobserve(entry.target); }
+        });
+      }, { threshold: 0.6 });
+      counters.forEach(function(el){ ioCount.observe(el); });
+    } else {
+      counters.forEach(animateCount);
+    }
+
+    // ---------- Tilt interactivo en tarjetas ----------
+    if(window.matchMedia('(hover: hover)').matches && !reduceMotion){
+      document.querySelectorAll('.tilt').forEach(function(card){
+        card.addEventListener('mousemove', function(e){
+          var r = card.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5;
+          var y = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform = 'perspective(900px) rotateY(' + (x*2.2) + 'deg) rotateX(' + (y*-2.2) + 'deg) translateY(-2px)';
+        });
+        card.addEventListener('mouseleave', function(){ card.style.transform = ''; });
+      });
+    }
+
+    // ---------- TOC activo según sección visible ----------
+    var tocLinks = document.querySelectorAll('.toc a[href^="#"]');
+    var sections = Array.prototype.map.call(tocLinks, function(a){
+      return document.getElementById(a.getAttribute('href').slice(1));
+    }).filter(Boolean);
+    function setActive(){
+      var pos = window.scrollY + window.innerHeight * 0.3;
+      var current = sections[0];
+      sections.forEach(function(sec){ if(sec.offsetTop <= pos) current = sec; });
+      tocLinks.forEach(function(a){
+        a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id);
+      });
+    }
+    document.addEventListener('scroll', setActive, { passive: true });
+    setActive();
+  })();
+  </script>
+
+  <script>
+  (function(){
+    // ---------- Base de conocimiento (contenido real del sitio) ----------
+    var KB = [
+      { id:'evento', kw:['evento','seec','que es','qué es','conferencia','sobre'],
+        es:'<strong>SEEC — Space Exploration Educators Conference</strong> es la conferencia internacional en Space Center Houston (NASA). Maker STEAM Horizonte Cero organiza la delegación académica hispanohablante para asistir en Houston 2027.',
+        en:'<strong>SEEC — Space Exploration Educators Conference</strong> is the international conference at Space Center Houston (NASA). Maker STEAM Horizonte Cero organizes the Spanish-speaking academic delegation for Houston 2027.',
+        chips:['fecha','registro'] },
+      { id:'fecha', kw:['fecha','cuando','cuándo','date','when','febrero'],
+        es:'La delegación viaja en <strong>febrero de 2027</strong>, sede Space Center Houston (NASA), modalidad presencial y bilingüe.',
+        en:'The delegation travels in <strong>February 2027</strong>, hosted at Space Center Houston (NASA), on-site and bilingual format.',
+        chips:['registro','requisitos'] },
+      { id:'registro', kw:['registro','registrar','inscrib','como me uno','how to join','sign up','apply','participar'],
+        es:'Para registrarte, envía un correo a <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> con el asunto "REGISTRO DE INTERÉS DELEGACIÓN HOUSTON 2027 — [Tu Nombre]" y adjunta tu documentación. También puedes escribir por WhatsApp a Administración.',
+        en:'To register, email <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> with subject "HOUSTON 2027 DELEGATION — EXPRESSION OF INTEREST — [Your Name]" and attach your documents. You can also reach Administration via WhatsApp.',
+        chips:['requisitos','contacto'],
+        actions:[{label:'✉️ Email de registro', href:'mailto:makersteamhorizontecero@gmail.com?subject=REGISTRO%20DE%20INTER%C3%89S%20DELEGACI%C3%93N%20HOUSTON%202027%20%E2%80%94%20%5BTu%20Nombre%5D'},{label:'💬 WhatsApp Administración', href:'https://wa.me/5218147062703?text=Hola%2C%20solicito%20informaci%C3%B3n%20para%20registro%20en%20la%20Delegaci%C3%B3n%20Houston%202027'}] },
+      { id:'requisitos', kw:['requisito','documento','pasaporte','visa','papeles','requirement','passport','document'],
+        es:'Documentación mínima recomendada: pasaporte vigente (mínimo 6 meses post-evento), visa B1/B2, identificación oficial, constancia de función educativa, carta de intención y compromiso de réplica institucional.',
+        en:'Recommended minimum documentation: valid passport (6+ months post-event), B1/B2 visa, official ID, proof of educational role, letter of intent, and institutional replication commitment.',
+        chips:['registro','uniforme'] },
+      { id:'uniforme', kw:['uniforme','ropa','chamarra','polo','oxford','playera','uniform','jacket','shirt'],
+        es:'El uniforme oficial <strong>"Marea Roja"</strong> incluye chamarra distintiva, playera negra ergonómica, camisa Oxford blanca y polo con insignia. Puedes solicitarlo por WhatsApp con Branding & Uniformes.',
+        en:'The official <strong>"Red Tide"</strong> uniform includes a signature jacket, ergonomic black t-shirt, white Oxford shirt, and an insignia polo. Request it via WhatsApp with Branding & Uniforms.',
+        chips:['equipo','requisitos'],
+        actions:[{label:'💬 Solicitar uniforme', href:'https://wa.me/5215529058989?text=Hola%2C%20solicito%20informaci%C3%B3n%20sobre%20uniformes%20oficiales'}] },
+      { id:'programa', kw:['programa','mentoria','mentoría','logistica','logística','program','mentorship','support'],
+        es:'El programa incluye mentoría académica en metodologías STEAM, soporte logístico (transporte, hospedaje), vinculación internacional y réplica institucional al regresar.',
+        en:'The program includes academic mentorship in STEAM methodologies, logistical support (travel, lodging), international networking, and institutional replication upon return.',
+        chips:['evento','equipo'] },
+      { id:'equipo', kw:['equipo','directorio','quien','quién','contacto','erick','erika','karla','claudia','team','who','director'],
+        es:'El equipo directivo: Dra. Erika Sánchez Pastrana (Dirección Académica), Lic. Erick Sánchez Reus (Administración), Dra. Karla Montoya (Coordinación SEEC 27) y Lic. Claudia Rivera (Imagen y Uniformes). Puedes ver sus contactos en la sección "Equipo".',
+        en:'Leadership team: Dr. Erika Sánchez Pastrana (Academic Director), Lic. Erick Sánchez Reus (Administration), Dr. Karla Montoya (SEEC 27 Coordination), and Lic. Claudia Rivera (Branding & Uniforms). See the "Team" section for contact details.',
+        chips:['contacto','registro'] },
+      { id:'contacto', kw:['contacto','correo','email','whatsapp','telefono','teléfono','contact','phone'],
+        es:'Escríbenos a <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> o visita <a href="https://www.makersteam.space/" target="_blank" rel="noopener">makersteam.space</a>. También hay WhatsApp directo por área en la sección "Equipo".',
+        en:'Write to us at <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> or visit <a href="https://www.makersteam.space/" target="_blank" rel="noopener">makersteam.space</a>. Direct WhatsApp per area is listed in the "Team" section.',
+        chips:['registro','evento'] },
+      { id:'sede', kw:['sede','lugar','houston','venue','location','where','donde','dónde'],
+        es:'La sede es <strong>Space Center Houston (NASA)</strong>, Texas, con modalidad presencial y bilingüe.',
+        en:'The venue is <strong>Space Center Houston (NASA)</strong>, Texas, on-site and bilingual format.',
+        chips:['fecha','registro'] }
+    ];
+
+    var GREETING_ES = '¡Hola! 👋 Soy el asistente de Maker STEAM Horizonte Cero. Puedo responder sobre el evento, fechas, registro, requisitos, uniforme y contacto. ¿En qué te ayudo?';
+    var GREETING_EN = "Hi! 👋 I'm the Maker STEAM Horizonte Cero assistant. I can help with the event, dates, registration, requirements, uniform, and contact info. What do you need?";
+    var FALLBACK_ES = 'No tengo una respuesta exacta para eso, pero puedes escribir directamente a <a href="mailto:makersteamhorizontecero@gmail.com">makersteamhorizontecero@gmail.com</a> y el equipo te responderá personalmente.';
+    var FALLBACK_EN = "I don't have an exact answer for that, but you can email <a href=\"mailto:makersteamhorizontecero@gmail.com\">makersteamhorizontecero@gmail.com</a> directly and the team will get back to you.";
+
+    var toggle = document.getElementById('aiToggle');
+    var panel = document.getElementById('aiPanel');
+    var closeBtn = document.getElementById('aiClose');
+    var body = document.getElementById('aiBody');
+    var suggestRow = document.getElementById('aiSuggest');
+    var input = document.getElementById('aiInput');
+    var sendBtn = document.getElementById('aiSend');
+    var started = false;
+
+    function isEnglish(text){
+      var enWords = ['when','where','how','what','who','date','venue','register','the','is','are'];
+      var t = ' ' + text.toLowerCase() + ' ';
+      var score = 0;
+      enWords.forEach(function(w){ if(t.indexOf(' '+w+' ') !== -1) score++; });
+      return score > 0;
+    }
+
+    function addMsg(html, who){
+      var div = document.createElement('div');
+      div.className = 'ai-msg ' + who;
+      div.innerHTML = html;
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+      return div;
+    }
+
+    function renderChips(entry){
+      suggestRow.innerHTML = '';
+      var topics = entry ? entry.chips : ['evento','registro','requisitos','uniforme'];
+      topics.slice(0,4).forEach(function(id){
+        var match = KB.filter(function(k){ return k.id === id; })[0];
+        if(!match) return;
+        var chip = document.createElement('span');
+        chip.className = 'ai-chip';
+        chip.textContent = match.id.charAt(0).toUpperCase() + match.id.slice(1);
+        chip.onclick = function(){ handleQuery(match.id); };
+        suggestRow.appendChild(chip);
+      });
+    }
+
+    function scoreEntry(entry, text){
+      var t = text.toLowerCase();
+      var score = 0;
+      entry.kw.forEach(function(k){ if(t.indexOf(k) !== -1) score += k.length; });
+      return score;
+    }
+
+    function handleQuery(rawText){
+      var text = rawText.trim();
+      if(!text) return;
+      addMsg(text.replace(/</g,'&lt;'), 'user');
+      var english = isEnglish(text);
+      var best = null, bestScore = 0;
+      KB.forEach(function(entry){
+        var s = scoreEntry(entry, text);
+        if(s > bestScore){ bestScore = s; best = entry; }
+      });
+      setTimeout(function(){
+        var msgDiv;
+        if(best && bestScore > 0){
+          msgDiv = addMsg(english ? best.en : best.es, 'bot');
+          if(best.actions){
+            var chipsWrap = document.createElement('div');
+            chipsWrap.className = 'chips';
+            best.actions.forEach(function(a){
+              var link = document.createElement('a');
+              link.href = a.href; link.target = '_blank'; link.rel = 'noopener';
+              link.className = 'ai-chip'; link.style.textDecoration = 'none';
+              link.textContent = a.label;
+              chipsWrap.appendChild(link);
+            });
+            msgDiv.appendChild(chipsWrap);
+          }
+        } else {
+          addMsg(english ? FALLBACK_EN : FALLBACK_ES, 'bot');
+        }
+        renderChips(best);
+      }, 260);
+    }
+
+    function openPanel(){
+      panel.classList.add('open');
+      if(!started){
+        started = true;
+        addMsg(GREETING_ES + '<br><span style="color:var(--muted-2);font-size:11px;">/ ' + GREETING_EN + '</span>', 'bot');
+        renderChips(null);
+      }
+      input.focus();
+    }
+
+    toggle.addEventListener('click', function(){
+      if(panel.classList.contains('open')){ panel.classList.remove('open'); }
+      else { openPanel(); }
+    });
+    closeBtn.addEventListener('click', function(){ panel.classList.remove('open'); });
+    sendBtn.addEventListener('click', function(){ handleQuery(input.value); input.value = ''; });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ handleQuery(input.value); input.value = ''; }
+    });
+  })();
+  </script>
+</body>
+</html>
